@@ -29,7 +29,7 @@ Credit :
 - [ ] Ril
 - [ ] Codecs
 - [ ] Camera, flashlight
-- [ ] Radio
+- [x] Radio
 - [ ] Fingerprint
 - [ ] Bluetooth
 - [x] Sensors
