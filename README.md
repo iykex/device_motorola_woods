@@ -1,4 +1,4 @@
-#                                       Device Tree for Motorola E4 (8.0 , 3.18.35+)
+#                                       Device Tree for Motorola E4 (7.x , 3.18.35+)
 
 The Moto E4 (codenamed _"woods"_) is a mid-range smartphone from Motorola.
 ![Moto E4](https://github.com/dev4wds/local_manifest/raw/los-14.1/device/motorola-moto-e4.jpg "Moto E4")
@@ -23,15 +23,4 @@ Credit :
 - @darklord4822
 
 ### Working:
-- [x] Wifi
-- [x] Sound
-- [x] LiveDisplay
-- [ ] Ril
-- [ ] Codecs
-- [ ] Camera, flashlight
-- [ ] Radio
-- [ ] Fingerprint
-- [ ] Bluetooth
-- [x] Sensors
-- [ ] Hotspot
-- ...
+- [x] All...

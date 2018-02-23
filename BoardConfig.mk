@@ -10,10 +10,7 @@ FORCE_32_BIT := true
 
 # Platform
 TARGET_BOARD_PLATFORM := mt6737m
-MTK_BOARD_PLATFORMS += mt6737m
 TARGET_NO_BOOTLOADER := true
-TARGET_NO_FACTORYIMAGE := true
-TARGET_BOOTLOADER_BOARD_NAME := mt6737m
 
 # Architecture
 ifeq ($(FORCE_32_BIT),true)
@@ -40,12 +37,12 @@ TARGET_CPU_ABI_LIST_32_BIT := $(TARGET_2ND_CPU_ABI),$(TARGET_2ND_CPU_ABI2)
 TARGET_CPU_ABI_LIST := $(TARGET_CPU_ABI_LIST_64_BIT),$(TARGET_CPU_ABI_LIST_32_BIT)
 endif
 
+# Bootloader
+TARGET_BOOTLOADER_BOARD_NAME := mt6737m
+
 # Recovery
-BOARD_HAS_LARGE_FILESYSTEM := true
 TARGET_USERIMAGES_USE_EXT4 := true
-TARGET_USERIMAGES_USE_F2FS := true
-TARGET_KERNEL_HAVE_EXFAT := true
-TARGET_KERNEL_HAVE_NTFS := true
+BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := ext4
 
 # Kernel
 BOARD_KERNEL_IMAGE_NAME := zImage-dtb
@@ -56,8 +53,6 @@ BOARD_RAMDISK_OFFSET := 0x04000000
 BOARD_TAGS_OFFSET := 0xE000000
 ifeq ($(FORCE_32_BIT),true)
 ARCH := arm
-TARGET_ARCH := arm
-KERNEL_ARCH := arm
 TARGET_KERNEL_ARCH := arm
 TARGET_KERNEL_CONFIG := woods_defconfig
 BOARD_KERNEL_CMDLINE := bootopt=64S3,32N2,32N2 androidboot.selinux=permissive androidboot.selinux=disabled 
@@ -80,7 +75,7 @@ BOARD_FLASH_BLOCK_SIZE := 131072
 TARGET_KMODULES := true
 
 # Assert
-TARGET_OTA_ASSERT_DEVICE := Moto_E4,Moto E4,E4,e4,woods,woods_f,woods_retail
+TARGET_OTA_ASSERT_DEVICE := Moto_E4,Moto E4,e4,E4,woods,woods _f
 
 # Disable memcpy opt (for audio libraries)
 TARGET_CPU_MEMCPY_OPT_DISABLE := true
@@ -88,15 +83,9 @@ TARGET_CPU_MEMCPY_OPT_DISABLE := true
 # Flags
 BOARD_GLOBAL_CFLAGS += -DNO_SECURE_DISCARD
 BOARD_GLOBAL_CFLAGS += -DDISABLE_HW_ID_MATCH_CHECK
+#BOARD_GLOBAL_CFLAGS += -DMTK_HARDWARE
+#BOARD_GLOBAL_CPPFLAGS += -DMTK_HARDWARE
 
-# Charger
-WITH_LINEAGE_CHARGER := false
-
-BOARD_DISABLE_HW_ID_MATCH_CHECK := true
-SUPPRESS_MTK_AUDIO_BLOB_ERR_MSG := true
- 
-# SensorHAL
-TARGET_SENSORS_DEVICE_API_VERSION := SENSORS_DEVICE_API_VERSION_1_1
 
 # Display
 BOARD_EGL_CFG := /vendor/motorola/woods/vendor/lib/egl/egl.cfg
@@ -111,9 +100,6 @@ MTK_HWC_VERSION := 1.4.1
 MTK_GPU_VERSION := mali midgard r12p1
 OVERRIDE_RS_DRIVER := libRSDriver_mtk.so
 
-# SW Gatekeeper
-BOARD_USE_SOFT_GATEKEEPER := true
-
 # Mediatek support
 BOARD_USES_MTK_HARDWARE:=true
 #DISABLE_ASHMEM_TRACKING := true
@@ -123,13 +109,20 @@ USE_CAMERA_STUB := true
 
 # Boot animation
 TARGET_BOOTANIMATION_MULTITHREAD_DECODE := true
-TARGET_BOOTANIMATION_TEXTURE_CACHE := true
+#TARGET_BOOTANIMATION_TEXTURE_CACHE := true
 
-# Lineage Hardware
-BOARD_HARDWARE_CLASS += device/motorola/woods/lineagehw
+# Audio
+BOARD_USES_MTK_AUDIO := true
+
+# Use custom init.rc
+TARGET_PROVIDES_INIT_RC := true
+
+# CMHW
+BOARD_USES_CYANOGEN_HARDWARE := true
+BOARD_HARDWARE_CLASS := device/motorola/woods/cmhw
 
 # Fix video autoscaling on old OMX decoders
-#TARGET_OMX_LEGACY_RESCALING := true
+TARGET_OMX_LEGACY_RESCALING := true
 
 # Charger
 BACKLIGHT_PATH := /sys/class/leds/lcd-backlight/brightness
@@ -139,7 +132,7 @@ BOARD_RIL_CLASS := ../../../device/motorola/woods/ril/
 
 # GPS
 BOARD_GPS_LIBRARIES :=true
-BOARD_CONNECTIVITY_MODULE := MT6625
+BOARD_CONNECTIVITY_MODULE := MT6630
 BOARD_MEDIATEK_USES_GPS := true
 
 # Wireless
@@ -171,7 +164,7 @@ EXTENDED_FONT_FOOTPRINT := true
 BOARD_HAVE_BLUETOOTH := true
 #BOARD_HAVE_BLUETOOTH_MTK := true
 #BOARD_BLUETOOTH_DOES_NOT_USE_RFKILL := true
-BOARD_BLUETOOTH_BDROID_HCILP_INCLUDED := 0
+#BOARD_BLUETOOTH_BDROID_HCILP_INCLUDED := 0
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/motorola/woods/bluetooth
 
 TARGET_LDPRELOAD += mtk_symbols.so
@@ -200,11 +193,15 @@ TARGET_SYSTEM_PROP := device/motorola/woods/system.prop
 TARGET_SPECIFIC_HEADER_PATH := device/motorola/woods/include
 TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/class/android_usb/android0/f_mass_storage/lun/file
 
+ifneq ($(FORCE_32_BIT),yes)
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += ro.zygote=zygote32
+else
+PRODUCT_COPY_FILES += system/core/rootdir/init.zygote64_32.rc:root/init.zygote64_32.rc
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += ro.zygote=zygote64_32
+endif
+
 BOARD_SEPOLICY_DIRS := \
        device/motorola/woods/sepolicy
 
 # Seccomp filter
 BOARD_SECCOMP_POLICY += device/motorola/woods/seccomp
-
-#HIDL
-DEVICE_MANIFEST_FILE := device/motorola/woods/hidl/manifest.xml
