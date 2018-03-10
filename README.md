@@ -37,6 +37,25 @@ Credit :
 - ...
 
 ### NOTE
+
+with nano editor, edit these files by Commenting out the line :
+
+in ( system/sepolicy/public ) domain.te [ line number : 227 on 15.0 & or 230 on 15.1 ]
+
+in ( system/core/init ) init.cpp [ line number : 401 on 15.0 & or 434 on 15.1 ]
+
+example :
+
+Comment line : 230
+
+nano system/sepolicy/public/domain.te
+
+Comment line : 434
+
+nano system/core/init/init.cpp
+
+now ...,
+
 Copy ```SkUserConfig.h``` & ```SkUserConfigManual.h``` to destination ```external/skia/include/core```  with below command  
 
 ```
