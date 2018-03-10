@@ -35,3 +35,12 @@ Credit :
 - [x] Sensors
 - [ ] Hotspot
 - ...
+
+### NOTE
+Copy ```SkUserConfig.h``` & ```SkUserConfigManual.h``` to destination ```external/skia/include/core```  with below command  
+
+```
+cp external/skia/include/config/SkUserConfig.h external/skia/include/core
+cp external/skia/include/config/SkUserConfigManual.h external/skia/include/core
+```
+
