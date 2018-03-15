@@ -48,11 +48,11 @@ example :
 
 Comment line : 230
 
-nano system/sepolicy/public/domain.te
+nano +230 system/sepolicy/public/domain.te
 
 Comment line : 434
 
-nano system/core/init/init.cpp
+nano +434 system/core/init/init.cpp
 
 now ...,
 
