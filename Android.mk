@@ -1,6 +1,9 @@
-LOCAL_PATH := $(call my-dir)
+#
+###
 
-ifeq ($(TARGET_DEVICE),woods)
+ifneq ($(filter woods, $(TARGET_DEVICE)),)
+
+LOCAL_PATH := $(call my-dir)
 
 include $(call all-makefiles-under,$(LOCAL_PATH))
 
