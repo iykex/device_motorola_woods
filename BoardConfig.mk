@@ -1,9 +1,9 @@
+DEVICE_PATH := device/motorola/woods
+VENDOR_PATH := vendor/motorola/woods
+
 # inherit from the proprietary version
 -include vendor/motorola/woods/BoardConfigVendor.mk
 
-
-# Disable NINJA
-#USE_NINJA := false
 
 # Architecture
 FORCE_32_BIT := true
@@ -50,6 +50,7 @@ TARGET_KERNEL_HAVE_NTFS := true
 # Kernel
 BOARD_KERNEL_IMAGE_NAME := zImage-dtb
 TARGET_KERNEL_SOURCE := kernel/motorola/woods
+TARGET_KERNEL_CONFIG := woods_defconfig
 BOARD_KERNEL_BASE := 0x40000000
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_RAMDISK_OFFSET := 0x04000000
@@ -59,7 +60,6 @@ ARCH := arm
 TARGET_ARCH := arm
 KERNEL_ARCH := arm
 TARGET_KERNEL_ARCH := arm
-TARGET_KERNEL_CONFIG := woods_defconfig
 BOARD_KERNEL_CMDLINE := bootopt=64S3,32N2,32N2 androidboot.selinux=permissive androidboot.selinux=disabled 
 BOARD_KERNEL_OFFSET := 0x00008000
 else
@@ -98,14 +98,13 @@ SUPPRESS_MTK_AUDIO_BLOB_ERR_MSG := true
 # SensorHAL
 TARGET_SENSORS_DEVICE_API_VERSION := SENSORS_DEVICE_API_VERSION_1_1
 
-# Display
-BOARD_EGL_CFG := /vendor/motorola/woods/vendor/lib/egl/egl.cfg
+# Graphics
+BOARD_EGL_CFG := $(DEVICE_PATH)/prebuild/egl.cfg
 USE_OPENGL_RENDERER := true
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 TARGET_RUNNING_WITHOUT_SYNC_FRAMEWORK := true
 TARGET_FORCE_HWC_FOR_VIRTUAL_DISPLAYS := true
 PRESENT_TIME_OFFSET_FROM_VSYNC_NS := 0
-#MAX_VIRTUAL_DISPLAY_DIMENSION := 1
 MTK_HWC_SUPPORT := yes
 MTK_HWC_VERSION := 1.4.1
 MTK_GPU_VERSION := mali midgard r12p1
@@ -114,22 +113,17 @@ OVERRIDE_RS_DRIVER := libRSDriver_mtk.so
 # SW Gatekeeper
 BOARD_USE_SOFT_GATEKEEPER := true
 
-# Mediatek support
+# MTK Hardware
 BOARD_USES_MTK_HARDWARE := true
-#DISABLE_ASHMEM_TRACKING := true
 
 # Camera
 USE_CAMERA_STUB := true
 
 # Boot animation
 TARGET_BOOTANIMATION_MULTITHREAD_DECODE := true
-#TARGET_BOOTANIMATION_TEXTURE_CACHE := true
 
 # Lineage Hardware
-BOARD_HARDWARE_CLASS += device/motorola/woods/lineagehw
-
-# Fix video autoscaling on old OMX decoders
-#TARGET_OMX_LEGACY_RESCALING := true
+BOARD_HARDWARE_CLASS += $(DEVICE_PATH)/lineagehw
 
 # Charger
 BACKLIGHT_PATH := /sys/class/leds/lcd-backlight/brightness
@@ -139,7 +133,7 @@ BOARD_RIL_CLASS := ../../../device/motorola/woods/ril/
 
 # GPS
 BOARD_GPS_LIBRARIES :=true
-BOARD_CONNECTIVITY_MODULE := MT6630
+BOARD_CONNECTIVITY_MODULE := MT6627
 BOARD_MEDIATEK_USES_GPS := true
 
 # Wireless
@@ -159,7 +153,6 @@ WIFI_DRIVER_STATE_OFF := 0
 
 # Enable Minikin text layout engine (will be the default soon)
 USE_MINIKIN := true
-#MALLOC_IMPL := dlmalloc
 
 # Charger
 BOARD_CHARGER_SHOW_PERCENTAGE := true
@@ -169,15 +162,13 @@ EXTENDED_FONT_FOOTPRINT := true
 
 # Bluetooth
 BOARD_HAVE_BLUETOOTH := true
-#BOARD_HAVE_BLUETOOTH_MTK := true
-#BOARD_BLUETOOTH_DOES_NOT_USE_RFKILL := true
-#BOARD_BLUETOOTH_BDROID_HCILP_INCLUDED := 0
-BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/motorola/woods/bluetooth
+BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(DEVICE_PATH)/bluetooth
 
+# Symbols for Mediatek
 TARGET_LDPRELOAD += mtk_symbols.so
 
 # CWM
-TARGET_RECOVERY_FSTAB := device/motorola/woods/rootdir/recovery.fstab
+TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/rootdir/recovery.fstab
 BOARD_HAS_NO_SELECT_BUTTON := true
 
 # TWRP stuff
@@ -196,12 +187,12 @@ TW_HAS_DOWNLOAD_MODE := true
 TW_EXCLUDE_SUPERSU := true
 TW_USE_TOOLBOX := true
 
-TARGET_SYSTEM_PROP := device/motorola/woods/system.prop
-TARGET_SPECIFIC_HEADER_PATH := device/motorola/woods/include
+TARGET_SYSTEM_PROP := $(DEVICE_PATH)/system.prop
+TARGET_SPECIFIC_HEADER_PATH := $(DEVICE_PATH)/include
 TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/class/android_usb/android0/f_mass_storage/lun/file
 
 BOARD_SEPOLICY_DIRS := \
-       device/motorola/woods/sepolicy
+       $(DEVICE_PATH)/sepolicy
 
 #HIDL
-DEVICE_MANIFEST_FILE := device/motorola/woods/hidl/manifest.xml
+DEVICE_MANIFEST_FILE := device/leagoo/M8_pro/hidl/manifest.xml
