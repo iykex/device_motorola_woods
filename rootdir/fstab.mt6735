@@ -1,6 +1,6 @@
 
 /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/system /system ext4 ro,noatime			wait
-/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/userdata /data f2fs rw,discard,nosuid,nodev,noatime,nodiratime,nobarrier,inline_xattr,inline_data wait,check,formattable,encryptable=/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/metadata
+# /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/userdata /data f2fs rw,discard,nosuid,nodev,noatime,nodiratime,nobarrier,inline_xattr,inline_data wait,check,formattable,encryptable=/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/metadata
 /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/userdata /data ext4 noatime,nosuid,nodev,noauto_da_alloc,discard   wait,check,formattable,encryptable=/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/metadata,
 /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/cache /cache ext4 noatime,nosuid,nodev,noauto_da_alloc,discard   wait,check
 /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/protect1 /protect_f ext4 noatime,nosuid,nodev,noauto_da_alloc,commit=1,nodelalloc   wait,check,formattable
@@ -11,7 +11,7 @@
 /devices/mtk-msdc.0/11240000.msdc1* auto vfat defaults voldmanaged=sdcard1:auto,noemulatedsd,encryptable=userdata
 /devices/platform/mt_usb* auto vfat defaults voldmanaged=usbotg:auto
 
-/dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/persist /persist ext4 noatime,nosuid,nodev,noauto_da_alloc,commit=1,nodelalloc   wait,check,formattable
+# /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/persist /persist ext4 noatime,nosuid,nodev,noauto_da_alloc,commit=1,nodelalloc   wait,check,formattable
 
 /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/nvdata	/nvdata		ext4	noatime,nosuid,nodev,noauto_da_alloc,discard        wait,check,formattable
 /dev/block/platform/mtk-msdc.0/11230000.msdc0/by-name/frp	/persistent     emmc	defaults	defaults

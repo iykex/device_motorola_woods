@@ -144,9 +144,9 @@ on post-fs-data
     chmod 0660 /proc/smb/ScreenComm
 
 #Define device for ATCID
-    chmod 660 /dev/ttyGS0 
-    chown system /dev/ttyGS0 
-    chmod 660 /dev/ttyGS1 
+    chmod 660 /dev/ttyGS0
+    chown system /dev/ttyGS0
+    chmod 660 /dev/ttyGS1
     chown system /dev/ttyGS1
    
 
