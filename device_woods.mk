@@ -4,7 +4,7 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 
 LOCAL_PATH := device/motorola/woods
 
-$(call inherit-product-if-exists, vendor/motorola/woods/woods-vendor.mk)
+$(call inherit-product-if-exists, vendor/motorola/woods/M8_pro-vendor.mk)
 
 DEVICE_PACKAGE_OVERLAYS += device/motorola/woods/overlay
 PRODUCT_PACKAGE_OVERLAYS += device/motorola/woods/overlay # enable this to be able overlay a default wallpaper
@@ -55,29 +55,29 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.camera.manual_sensor.xml:system/etc/permissions/android.hardware.camera.manual_sensor.xml \
     frameworks/native/data/etc/android.hardware.camera.autofocus.xml:system/etc/permissions/android.hardware.camera.autofocus.xml
 
-# Media
+# Media	
 PRODUCT_COPY_FILES += \
     frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/vendor/etc/media_codecs_google_audio.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:system/vendor/etc/media_codecs_google_telephony.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_video_le.xml:system/vendor/etc/media_codecs_google_video_le.xml
 
-# Media
+# Media	
 PRODUCT_COPY_FILES += \
     frameworks/av/services/audiopolicy/config/audio_policy_volumes.xml:/system/etc/audio_policy_volumes.xml \
     frameworks/av/services/audiopolicy/config/default_volume_tables.xml:/system/etc/default_volume_tables.xml \
     frameworks/av/services/audiopolicy/config/r_submix_audio_policy_configuration.xml:/system/etc/r_submix_audio_policy_configuration.xml \
     frameworks/av/services/audiopolicy/config/usb_audio_policy_configuration.xml:/system/etc/usb_audio_policy_configuration.xml
-
+    
 
 # Seccomp policy
 PRODUCT_COPY_FILES += \
-    device/motorola/woods/seccomp/mediacodec.policy:system/vendor/etc/seccomp_policy/mediacodec.policy \
-    device/motorola/woods/seccomp/mediaextractor.policy:system/vendor/etc/seccomp_policy/mediaextractor.policy
-
+    $(LOCAL_PATH)/seccomp/mediacodec.policy:system/vendor/etc/seccomp_policy/mediacodec.policy \
+    $(LOCAL_PATH)/seccomp/mediaextractor.policy:system/vendor/etc/seccomp_policy/mediaextractor.policy
+    
 # HIDL
 PRODUCT_COPY_FILES += \
     device/motorola/woods/hidl/manifest.xml:system/vendor/manifest.xml
-
+    
 
 # Ramdisk
 PRODUCT_COPY_FILES += \
@@ -87,9 +87,14 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/init.mt6735.usb.rc:root/init.mt6735.usb.rc \
     $(LOCAL_PATH)/rootdir/init.mt6735.rc:root/init.mt6735.rc \
     $(LOCAL_PATH)/rootdir/fstab.mt6735:root/fstab.mt6735 \
-    $(LOCAL_PATH)/rootdir/init.microtrust.rc:root/init.microtrust.rc \
+    $(LOCAL_PATH)/rootdir/sbin/fuelgauged_static:root/sbin/fuelgauged_static \
+    $(LOCAL_PATH)/rootdir/sbin/multi_init:root/sbin/multi_init \
     $(LOCAL_PATH)/rootdir/init.connectivity.rc:root/init.connectivity.rc \
-    $(LOCAL_PATH)/rootdir/init.mt6735.power.rc:root/init.mt6735.power.rc
+    $(LOCAL_PATH)/rootdir/init.mt6735.power.rc:root/init.mt6735.power.rc \
+    $(LOCAL_PATH)/rootdir/init.microtrust.rc:root/init.microtrust.rc \
+    $(LOCAL_PATH)/rootdir/init.recovery.mt6735.rc:root/init.recovery.mt6735.rc \
+    $(LOCAL_PATH)/rootdir/init.moto.fp.rc:root/init.moto.fp.rc \
+    $(LOCAL_PATH)/rootdir/multi_init.rc:root/multi_init.rc
 
 # Audio
 PRODUCT_PACKAGES += \
@@ -114,8 +119,7 @@ PRODUCT_PACKAGES += \
     wificond \
     wpa_supplicant \
     wpa_supplicant.conf
-
-
+     
 PRODUCT_PACKAGES += \
     librs_jni \
     com.android.future.usb.accessory
@@ -124,23 +128,22 @@ PRODUCT_PACKAGES += \
     libnl_2 \
     charger_res_images \
     libion
-
+    
 # Storage
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.sys.sdcardfs=true
-
+    
 # Bluetooth
 PRODUCT_PACKAGES += \
     android.hardware.bluetooth@1.0-impl \
     android.hardware.bluetooth@1.0-service
-
+    
 # Camera HAL
 PRODUCT_PACKAGES += \
     camera.device@1.0-impl \
     camera.device@3.2-impl \
     android.hardware.camera.provider@2.4-impl \
     android.hardware.camera.provider@2.4-service
-
 
 # FM Radio
 PRODUCT_PACKAGES += \
@@ -155,7 +158,7 @@ PRODUCT_PACKAGES += \
 # CM14 mtk symbols
 PRODUCT_PACKAGES += \
     mtk_symbols
-
+    
 # Fingerprint HAL
 PRODUCT_PACKAGES += \
     android.hardware.biometrics.fingerprint@2.1-service
@@ -163,45 +166,45 @@ PRODUCT_PACKAGES += \
 # Power
 PRODUCT_PACKAGES += \
     power.mt6737m
-
+    
 # Vibrator
 PRODUCT_PACKAGES += \
     android.hardware.vibrator@1.0-impl \
     android.hardware.vibrator@1.0-service
-
+    
 # Keymaster HAL
 PRODUCT_PACKAGES += \
     android.hardware.keymaster@3.0-impl
-
+    
 # Sensors HAL
 PRODUCT_PACKAGES += \
     android.hardware.light@2.0-impl \
     android.hardware.light@2.0-service \
     android.hardware.sensors@1.0-impl \
     android.hardware.sensors@1.0-service \
-    lights.mt6737
-
+    lights.mt6737m
+    
 # GPS HAL
 PRODUCT_PACKAGES += \
     android.hardware.gnss@1.0-impl
-
+    
 # GPS force mode
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.force.gps.mode=gnss
-
+    
 # USB HAL
 PRODUCT_PACKAGES += \
     android.hardware.usb@1.0-service
-
+    
 # Health HAL
 PRODUCT_PACKAGES += \
     android.hardware.health@1.0-impl \
     android.hardware.health@1.0-service
-
+    
 # Power HAL
 PRODUCT_PACKAGES += \
     android.hardware.power@1.0-impl
-
+    
 # Graphic HAL
 PRODUCT_PACKAGES += \
     android.hardware.graphics.allocator@2.0-impl \
@@ -227,7 +230,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Media
 PRODUCT_PROPERTY_OVERRIDES += \
     media.stagefright.legacyencoder=0
-
+    
 # Properties
 PRODUCT_PROPERTY_OVERRIDES += \
 	ro.hw.gyroscope=false \
@@ -246,3 +249,6 @@ PRODUCT_SYSTEM_SERVER_JARS += com.cyanogenmod.keyhandler
 
 # Never dexopt the keyhandler
 $(call add-product-dex-preopt-module-config,com.cyanogenmod.keyhandler,disable)
+
+# Superuser
+WITH_SU := true
