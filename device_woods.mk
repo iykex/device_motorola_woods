@@ -119,6 +119,10 @@ PRODUCT_PACKAGES += \
     libion \
     fingerprintd
 
+# Doze
+PRODUCT_PACKAGES += \
+    Doze
+
 # FM Radio
 PRODUCT_PACKAGES += \
     FMRadio \
