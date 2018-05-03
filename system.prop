@@ -136,3 +136,13 @@ ro.longcheer.sku=EMEA
 ro.longcheer.simsum=2
 ro.longcheer.thermal=1
 ro.boot.opt_eccci_c2k=0
+
+#enable VoLTE Sh:ts
+persist.mtk_ims_support=1
+ro.mtk_multiple_ims_support=1
+persist.mtk_wfc_support=1
+persist.mtk_volte_support=1
+persist.mtk.volte.enable=1
+persist.mtk_vilte_support=1
+ro.mtk_vilte_ut_support=0
+persist.mtk_ussi_support=1
