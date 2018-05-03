@@ -68,6 +68,11 @@ PRODUCT_COPY_FILES += \
     frameworks/av/services/audiopolicy/config/r_submix_audio_policy_configuration.xml:/system/etc/r_submix_audio_policy_configuration.xml \
     frameworks/av/services/audiopolicy/config/usb_audio_policy_configuration.xml:/system/etc/usb_audio_policy_configuration.xml
     
+# Camera permissions from Motorola
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/moto/configs/com.motorola.camera.xml:system/etc/permissions/com.motorola.camera.xml \
+    $(LOCAL_PATH)/moto/configs/com.motorola.motosignature.xml:system/etc/permissions/com.motorola.motosignature.xml \
+	$(LOCAL_PATH)/moto/configs/com.motorola.cameraone.xml:system/etc/permissions/com.motorola.cameraone.xml
 
 # Seccomp policy
 PRODUCT_COPY_FILES += \
