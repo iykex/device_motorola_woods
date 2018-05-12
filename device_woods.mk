@@ -4,7 +4,7 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 
 LOCAL_PATH := device/motorola/woods
 
-$(call inherit-product-if-exists, vendor/motorola/woods/M8_pro-vendor.mk)
+$(call inherit-product-if-exists, vendor/motorola/woods/woods-vendor.mk)
 
 DEVICE_PACKAGE_OVERLAYS += device/motorola/woods/overlay
 PRODUCT_PACKAGE_OVERLAYS += device/motorola/woods/overlay # enable this to be able overlay a default wallpaper
@@ -20,7 +20,7 @@ PRODUCT_AAPT_CONFIG := normal xhdpi xxhdpi
 PRODUCT_AAPT_PREF_CONFIG := xhdpi
 
 PRODUCT_DEFAULT_LANGUAGE := en
-PRODUCT_DEFAULT_REGION   := US
+PRODUCT_DEFAULT_REGION := US
 
 # Permissions
 PRODUCT_COPY_FILES += \
@@ -60,6 +60,16 @@ PRODUCT_COPY_FILES += \
     frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/vendor/etc/media_codecs_google_audio.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:system/vendor/etc/media_codecs_google_telephony.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_video_le.xml:system/vendor/etc/media_codecs_google_video_le.xml
+   $(LOCAL_PATH)/configs/media_codecs.xml:system/vendor/etc/media_codecs.xml \
+   $(LOCAL_PATH)/configs/media_codecs_mediatek_video.xml:system/vendor/etc/media_codecs_mediatek_video.xml \
+   $(LOCAL_PATH)/configs/media_codecs_performance.xml:system/vendor/etc/media_codecs_performance.xml \
+   $(LOCAL_PATH)/configs/media_profiles.xml:system/vendor/etc/media_profiles.xml
+
+# Audio
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/audio/audio_device.xml:system/vendor/etc/audio_device.xml \
+    $(LOCAL_PATH)/configs/audio/audio_policy_configuration.xml:system/vendor/etc/audio_policy_configuration.xml \
+    $(LOCAL_PATH)/configs/audio/a2dp_audio_policy_configuration.xml:/system/vendor/etc/a2dp_audio_policy_configuration.xml
 
 # Media	
 PRODUCT_COPY_FILES += \
@@ -81,8 +91,7 @@ PRODUCT_COPY_FILES += \
     
 # HIDL
 PRODUCT_COPY_FILES += \
-    device/motorola/woods/hidl/manifest.xml:system/vendor/manifest.xml
-    
+    $(LOCAL_PATH)/configs/hidl/manifest.xml:system/vendor/manifest.xml
 
 # Ramdisk
 PRODUCT_COPY_FILES += \
@@ -114,16 +123,24 @@ PRODUCT_PACKAGES += \
     libtinymix \
     libtinyxml
 
-# WiFi
+# Wifi
 PRODUCT_PACKAGES += \
     android.hardware.wifi@1.0-service \
-    dhcpcd.conf \
-    hostapd \
     lib_driver_cmd_mt66xx \
     libwpa_client \
+    hostapd \
     wificond \
-    wpa_supplicant \
-    wpa_supplicant.conf
+    wifilogd \
+    wpa_supplicant
+
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/etc/wifi/wpa_supplicant.conf:system/vendor/etc/wifi/wpa_supplicant.conf \
+    $(LOCAL_PATH)/configs/etc/wifi/wpa_supplicant_overlay.conf:system/vendor/etc/wifi/wpa_supplicant_overlay.conf \
+    $(LOCAL_PATH)/configs/etc/wifi/p2p_supplicant_overlay.conf:system/vendor/etc/wifi/p2p_supplicant_overlay.conf
+
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.boot.wificountrycode=00
+
      
 PRODUCT_PACKAGES += \
     librs_jni \
@@ -145,10 +162,10 @@ PRODUCT_PACKAGES += \
     
 # Camera HAL
 PRODUCT_PACKAGES += \
-    camera.device@1.0-impl \
-    camera.device@3.2-impl \
     android.hardware.camera.provider@2.4-impl \
     android.hardware.camera.provider@2.4-service
+    #camera.device@1.0-impl \
+    #camera.device@3.2-impl \
 
 # FM Radio
 PRODUCT_PACKAGES += \
@@ -164,9 +181,13 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     mtk_symbols
     
-# Fingerprint HAL
+# Fingerprint HAL & pack
 PRODUCT_PACKAGES += \
-    android.hardware.biometrics.fingerprint@2.1-service
+    android.hardware.biometrics.fingerprint@2.1-service \
+    fingerprint.default
+
+PRODUCT_COPY_FILES += \
+    frameworks/native/data/etc/android.hardware.fingerprint.xml:system/etc/permissions/android.hardware.fingerprint.xml
 
 # Power
 PRODUCT_PACKAGES += \
@@ -228,6 +249,18 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 	ro.debuggable=1 \
 	ro.config.low_ram=false
 
+# Google properties overides
+PRODUCT_PROPERTY_OVERRIDES += \
+    keyguard.no_require_sim=true \
+    ro.url.legal=http://www.google.com/intl/%s/mobile/android/basic/phone-legal.html \
+    ro.url.legal.android_privacy=http://www.google.com/intl/%s/mobile/android/basic/privacy.html \
+    ro.com.google.clientidbase=android-google \
+    ro.atrace.core.services=com.google.android.gms,com.google.android.gms.ui,com.google.android.gms.persistent \
+    ro.error.receiver.system.apps=com.google.android.gms \
+    ro.setupwizard.enterprise_mode=1 \
+    ro.com.android.dataroaming=false \
+    net.tethering.noprovisioning=true
+
 # IO Scheduler
 PRODUCT_PROPERTY_OVERRIDES += \
     sys.io.scheduler=cfq
@@ -257,3 +290,9 @@ $(call add-product-dex-preopt-module-config,com.cyanogenmod.keyhandler,disable)
 
 # Superuser
 WITH_SU := true
+
+#debug_boot
+PRODUCT_PACKAGES += \
+    busybox \
+    log-kmsg.sh \
+    init_orig
