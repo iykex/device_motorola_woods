@@ -201,7 +201,7 @@ BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(DEVICE_PATH)/bluetooth
 TARGET_LDPRELOAD += mtk_symbols.so
 
 # Recovery
-RECOVERY_VARIANT := twrp
+#RECOVERY_VARIANT := twrp
 TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/rootdir/recovery.fstab
 
 # TWRP-specific

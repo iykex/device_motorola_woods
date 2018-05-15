@@ -2,9 +2,10 @@
 
 # Release name
 PRODUCT_RELEASE_NAME := woods
+TARGET_PRODUCT := rr_woods
 
 # Inherit some common CM stuff.
-$(call inherit-product, vendor/lineage/config/common_full_phone.mk)
+$(call inherit-product, vendor/rr/config/common_full_phone.mk)
 
 # Inherit device configuration
 $(call inherit-product, device/motorola/woods/device_woods.mk)
@@ -15,12 +16,12 @@ DEVICE_RESOLUTION := 720x1280
 
 # Device identifier. This must come after all inclusions
 PRODUCT_DEVICE := woods
-PRODUCT_NAME := lineage_woods
+PRODUCT_NAME := rr_woods
 PRODUCT_BRAND := Motorola
 PRODUCT_MODEL := Moto E4
 PRODUCT_MANUFACTURER := Motorola
 
-PRODUCT_SYSTEM_PROPERTY_BLACKLIST := ro.product.model
+#PRODUCT_SYSTEM_PROPERTY_BLACKLIST := ro.product.model
 
 PRODUCT_BUILD_PROP_OVERRIDES += \
     BUILD_FINGERPRINT=motorola/woods/woods:7.1.1/NMA26.42-113/133:user/release-keys \
