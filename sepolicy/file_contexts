@@ -491,7 +491,7 @@
 # System files
 #
 /(system\/vendor|vendor)/bin/GoogleOtaBinder u:object_r:GoogleOtaBinder_exec:s0
-/(system\/vendor|vendor)/bin/rilproxy u:object_r:rilproxy_exec:s0
+#/(system\/vendor|vendor)/bin/rilproxy u:object_r:rilproxy_exec:s0
 /(system\/vendor|vendor)/bin/dm_agent_binder u:object_r:dm_agent_binder_exec:s0
 
 /(system\/vendor|vendor)/bin/akmd8975 u:object_r:akmd8975_exec:s0
