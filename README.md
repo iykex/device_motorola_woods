@@ -36,6 +36,10 @@ Thanks to olegsvs, danielhk, Zormax, darklord4822, xcore995, SRT.
 
 ### NOTE :
 
+_Before you use do the following, keep in mind that you only
+do these when the applied __Patch__ fails to work ._
+
+
 Apply these manual edit to lineage-15.0/15.1 source 
 before building the rom
 
@@ -60,10 +64,12 @@ Comment line : ```434```
 
 ```nano +434 system/core/init/init.cpp```
 
-Copy this ```SkUserConfig.h``` to destination ```external/skia/include/core```  with below command  
+Copy this `SkUserConfig.h` & `SkUserConfigManual.h` to destination ```external/skia/include/core```  with below command  
 
-```cp external/skia/include/config/SkUserConfig.h external/skia/include/core```
-
+```
+cp external/skia/include/config/SkUserConfig.h external/skia/include/core
+cp external/skia/include/config/SkUserConfigManual.h external/skia/include/core
+```
 :Sensors HAL (DO ONLY WHEN REQUIRED!)
 
 when building with : ```PRODUCT_PACKAGES += android.hardware.sensors@1.0-service``` ,it's advisable to locate the ```Sensors.cpp``` $location :```hardware/interfaces/sensors/1.0/default/Sensors.cpp``` and modify it  from```CHECK_GE(getHalDeviceVersion(), SENSORS_DEVICE_API_VERSION_1_3);```  to ```CHECK_GE(getHalDeviceVersion(), SENSORS_DEVICE_API_VERSION_1_0);``` 
