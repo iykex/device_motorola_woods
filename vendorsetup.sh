@@ -5,7 +5,6 @@ done
 
 # Patches
 echo "Applying Patches Automatically ..."
-cd ../../../..
 cd system/core
 git apply -v ../../device/motorola/woods/patches/00-system_core.patch
 git apply -v ../../device/motorola/woods/patches/01-system_core.patch
