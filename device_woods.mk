@@ -82,13 +82,13 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/moto/configs/com.motorola.camera.xml:system/etc/permissions/com.motorola.camera.xml \
     $(LOCAL_PATH)/moto/configs/com.motorola.motosignature.xml:system/etc/permissions/com.motorola.motosignature.xml \
-	$(LOCAL_PATH)/moto/configs/com.motorola.cameraone.xml:system/etc/permissions/com.motorola.cameraone.xml
+    $(LOCAL_PATH)/moto/configs/com.motorola.cameraone.xml:system/etc/permissions/com.motorola.cameraone.xml
 
 # Seccomp policy
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/seccomp/mediacodec.policy:system/vendor/etc/seccomp_policy/mediacodec.policy \
     $(LOCAL_PATH)/seccomp/mediaextractor.policy:system/vendor/etc/seccomp_policy/mediaextractor.policy
-    
+
 # HIDL
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/hidl/manifest.xml:system/vendor/manifest.xml
@@ -140,8 +140,7 @@ PRODUCT_COPY_FILES += \
 
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.boot.wificountrycode=00
-
-     
+   
 PRODUCT_PACKAGES += \
     librs_jni \
     com.android.future.usb.accessory
