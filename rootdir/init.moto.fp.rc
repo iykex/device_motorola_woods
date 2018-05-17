@@ -1,0 +1,9 @@
+# .rc configure for fingerprint
+# motorola_moto_e4_woods
+
+on post-fs-data
+    mkdir /data/system/ma_fingerprint 0777 system system
+
+service fingerprintd /system/bin/fingerprintd
+    class late_start
+    user system

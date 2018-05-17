@@ -1,0 +1,15 @@
+on post-fs-data
+    # Modem related device nodes
+    chown radio radio /sys/kernel/ccci/boot
+
+    # SELinux
+    mkdir /data/ccci_cfg 0770 system radio
+    restorecon /data/ccci_cfg
+    restorecon_recursive /protect_f
+    restorecon_recursive /protect_s
+
+    # ignore permission check
+    write /data/ccci_cfg/md_new_ver.1 "flag"
+    chmod 0660 /data/ccci_cfg/md_new_ver.1
+
+    setprop vold.post_fs_data_done 1
