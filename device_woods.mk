@@ -77,7 +77,7 @@ PRODUCT_COPY_FILES += \
     frameworks/av/services/audiopolicy/config/default_volume_tables.xml:/system/etc/default_volume_tables.xml \
     frameworks/av/services/audiopolicy/config/r_submix_audio_policy_configuration.xml:/system/etc/r_submix_audio_policy_configuration.xml \
     frameworks/av/services/audiopolicy/config/usb_audio_policy_configuration.xml:/system/etc/usb_audio_policy_configuration.xml
-    
+
 # Camera permissions from Motorola
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/moto/configs/com.motorola.camera.xml:system/etc/permissions/com.motorola.camera.xml \
@@ -123,7 +123,7 @@ PRODUCT_PACKAGES += \
     libtinymix \
     libtinyxml
 
-# Wifi
+# WiFi
 PRODUCT_PACKAGES += \
     android.hardware.wifi@1.0-service \
     lib_driver_cmd_mt66xx \
@@ -150,22 +150,23 @@ PRODUCT_PACKAGES += \
     libnl_2 \
     charger_res_images \
     libion
-    
+
 # Storage
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.sys.sdcardfs=true
-    
+
 # Bluetooth
 PRODUCT_PACKAGES += \
     android.hardware.bluetooth@1.0-impl \
     android.hardware.bluetooth@1.0-service
-    
+
 # Camera HAL
 PRODUCT_PACKAGES += \
+    camera.device@1.0-impl \
+    camera.device@3.2-impl \
     android.hardware.camera.provider@2.4-impl \
     android.hardware.camera.provider@2.4-service
-    #camera.device@1.0-impl \
-    #camera.device@3.2-impl \
+
 
 # FM Radio
 PRODUCT_PACKAGES += \
@@ -180,7 +181,7 @@ PRODUCT_PACKAGES += \
 # CM14 mtk symbols
 PRODUCT_PACKAGES += \
     mtk_symbols
-    
+
 # Fingerprint HAL & pack
 PRODUCT_PACKAGES += \
     android.hardware.biometrics.fingerprint@2.1-service \
@@ -192,16 +193,16 @@ PRODUCT_COPY_FILES += \
 # Power
 PRODUCT_PACKAGES += \
     power.mt6737m
-    
+
 # Vibrator
 PRODUCT_PACKAGES += \
     android.hardware.vibrator@1.0-impl \
     android.hardware.vibrator@1.0-service
-    
+
 # Keymaster HAL
 PRODUCT_PACKAGES += \
     android.hardware.keymaster@3.0-impl
-    
+
 # Sensors HAL
 PRODUCT_PACKAGES += \
     android.hardware.light@2.0-impl \
@@ -209,28 +210,28 @@ PRODUCT_PACKAGES += \
     android.hardware.sensors@1.0-impl \
     android.hardware.sensors@1.0-service \
     lights.mt6737m
-    
+
 # GPS HAL
 PRODUCT_PACKAGES += \
     android.hardware.gnss@1.0-impl
-    
+
 # GPS force mode
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.force.gps.mode=gnss
-    
+
 # USB HAL
 PRODUCT_PACKAGES += \
     android.hardware.usb@1.0-service
-    
+
 # Health HAL
 PRODUCT_PACKAGES += \
     android.hardware.health@1.0-impl \
     android.hardware.health@1.0-service
-    
+
 # Power HAL
 PRODUCT_PACKAGES += \
     android.hardware.power@1.0-impl
-    
+
 # Graphic HAL
 PRODUCT_PACKAGES += \
     android.hardware.graphics.allocator@2.0-impl \
@@ -268,7 +269,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Media
 PRODUCT_PROPERTY_OVERRIDES += \
     media.stagefright.legacyencoder=0
-    
+
 # Properties
 PRODUCT_PROPERTY_OVERRIDES += \
 	ro.hw.gyroscope=false \
@@ -289,10 +290,10 @@ PRODUCT_SYSTEM_SERVER_JARS += com.cyanogenmod.keyhandler
 $(call add-product-dex-preopt-module-config,com.cyanogenmod.keyhandler,disable)
 
 # Superuser
-WITH_SU := true
+#WITH_SU := true
 
 #debug_boot
-PRODUCT_PACKAGES += \
-    busybox \
-    log-kmsg.sh \
-    init_orig
+#PRODUCT_PACKAGES += \
+    #busybox \
+    #log-kmsg.sh \
+    #init_orig
