@@ -1,2 +1,0 @@
-# device specific syscalls
-clock_gettime: 1
