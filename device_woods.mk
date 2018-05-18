@@ -125,6 +125,10 @@ PRODUCT_PACKAGES += \
 
 # FM Radio
 PRODUCT_PACKAGES += \
+    EngineerMode
+
+# FM Radio
+PRODUCT_PACKAGES += \
     FMRadio \
     libfmjni
 
