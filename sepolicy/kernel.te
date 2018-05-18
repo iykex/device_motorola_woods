@@ -78,3 +78,6 @@ allow kernel {vfat fuseblk mnt_media_rw_file}:dir create_dir_perms;
 allow kernel {vfat fuseblk mnt_media_rw_file}:file create_file_perms;
 allow kernel kernel:key { write search setattr };
 
+# izaqkull add {20180518}
+#allow kernel system_data_file:file { write };
+
