@@ -121,7 +121,7 @@ PRODUCT_PACKAGES += \
 
 # Doze
 PRODUCT_PACKAGES += \
-    Doze
+    MotoDoze
 
 # FM Radio
 PRODUCT_PACKAGES += \
