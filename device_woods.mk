@@ -105,9 +105,7 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/init.connectivity.rc:root/init.connectivity.rc \
     $(LOCAL_PATH)/rootdir/init.mt6735.power.rc:root/init.mt6735.power.rc \
     $(LOCAL_PATH)/rootdir/init.microtrust.rc:root/init.microtrust.rc \
-    $(LOCAL_PATH)/rootdir/init.recovery.mt6735.rc:root/init.recovery.mt6735.rc \
-    $(LOCAL_PATH)/rootdir/init.moto.fp.rc:root/init.moto.fp.rc \
-    $(LOCAL_PATH)/rootdir/multi_init.rc:root/multi_init.rc
+    $(LOCAL_PATH)/rootdir/init.moto.fp.rc:root/init.moto.fp.rc
 
 # Audio
 PRODUCT_PACKAGES += \
@@ -139,7 +137,7 @@ PRODUCT_COPY_FILES += \
 
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.boot.wificountrycode=00
-   
+
 PRODUCT_PACKAGES += \
     librs_jni \
     com.android.future.usb.accessory
