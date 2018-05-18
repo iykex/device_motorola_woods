@@ -102,7 +102,6 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/init.mt6735.usb.rc:root/init.mt6735.usb.rc \
     $(LOCAL_PATH)/rootdir/init.mt6735.rc:root/init.mt6735.rc \
     $(LOCAL_PATH)/rootdir/fstab.mt6735:root/fstab.mt6735 \
-    $(LOCAL_PATH)/rootdir/sbin/fuelgauged_static:root/sbin/fuelgauged_static \
     $(LOCAL_PATH)/rootdir/sbin/multi_init:root/sbin/multi_init \
     $(LOCAL_PATH)/rootdir/init.connectivity.rc:root/init.connectivity.rc \
     $(LOCAL_PATH)/rootdir/init.mt6735.power.rc:root/init.mt6735.power.rc \
