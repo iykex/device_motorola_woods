@@ -120,8 +120,8 @@ PRODUCT_PACKAGES += \
     fingerprintd
 
 # Doze
-#PRODUCT_PACKAGES += \
-    #Doze
+PRODUCT_PACKAGES += \
+    Doze
 
 # FM Radio
 PRODUCT_PACKAGES += \
