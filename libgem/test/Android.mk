@@ -53,8 +53,8 @@ LOCAL_SHARED_LIBRARIES := \
 
 
 LOCAL_C_INCLUDES:= \
-	device/motorola/woods/libgem/inc \
-	device/motorola/woods/libgem/gralloc_extra/include/
+	device/moto/e4/libgem/inc \
+	device/moto/e4/libgem/gralloc_extra/include/
 
 
 LOCAL_MODULE := guiext-test
@@ -87,8 +87,8 @@ LOCAL_SHARED_LIBRARIES := \
 	libgralloc_extra
 
 LOCAL_C_INCLUDES:= \
-	device/motorola/woods/libgem/inc \
-	device/motorola/woods/libgem/gralloc_extra/include/
+	device/moto/e4/libgem/inc \
+	device/moto/e4/libgem/gralloc_extra/include/
 
 
 LOCAL_MODULE := guiext-test-surface
@@ -116,7 +116,7 @@ LOCAL_SHARED_LIBRARIES := \
 	libui_ext
 
 LOCAL_C_INCLUDES:= \
-	device/motorola/woods/libgem/inc
+	device/moto/e4/libgem/inc
 
 
 LOCAL_MODULE := wdt-test

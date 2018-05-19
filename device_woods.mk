@@ -71,7 +71,7 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/audio/audio_policy_configuration.xml:system/vendor/etc/audio_policy_configuration.xml \
     $(LOCAL_PATH)/configs/audio/a2dp_audio_policy_configuration.xml:/system/vendor/etc/a2dp_audio_policy_configuration.xml
 
-# Media	
+# Media
 PRODUCT_COPY_FILES += \
     frameworks/av/services/audiopolicy/config/audio_policy_volumes.xml:/system/etc/audio_policy_volumes.xml \
     frameworks/av/services/audiopolicy/config/default_volume_tables.xml:/system/etc/default_volume_tables.xml \
@@ -86,12 +86,12 @@ PRODUCT_COPY_FILES += \
 
 # Seccomp policy
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/seccomp/mediacodec.policy:system/vendor/etc/seccomp_policy/mediacodec.policy \
-    $(LOCAL_PATH)/seccomp/mediaextractor.policy:system/vendor/etc/seccomp_policy/mediaextractor.policy
+    device/motorola/woods/seccomp/mediacodec.policy:system/vendor/etc/seccomp_policy/mediacodec.policy \
+    device/motorola/woods/seccomp/mediaextractor.policy:system/vendor/etc/seccomp_policy/mediaextractor.policy
 
 # HIDL
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/hidl/manifest.xml:system/vendor/manifest.xml
+    device/motorola/woods/hidl/manifest.xml:system/vendor/manifest.xml
 
 
 # Ramdisk
@@ -102,10 +102,9 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/init.mt6735.usb.rc:root/init.mt6735.usb.rc \
     $(LOCAL_PATH)/rootdir/init.mt6735.rc:root/init.mt6735.rc \
     $(LOCAL_PATH)/rootdir/fstab.mt6735:root/fstab.mt6735 \
-    $(LOCAL_PATH)/rootdir/init.connectivity.rc:root/init.connectivity.rc \
-    $(LOCAL_PATH)/rootdir/init.mt6735.power.rc:root/init.mt6735.power.rc \
     $(LOCAL_PATH)/rootdir/init.microtrust.rc:root/init.microtrust.rc \
-    $(LOCAL_PATH)/rootdir/init.moto.fp.rc:root/init.moto.fp.rc
+    $(LOCAL_PATH)/rootdir/init.connectivity.rc:root/init.connectivity.rc \
+    $(LOCAL_PATH)/rootdir/init.mt6735.power.rc:root/init.mt6735.power.rc
 
 # Audio
 PRODUCT_PACKAGES += \
@@ -123,20 +122,18 @@ PRODUCT_PACKAGES += \
 # WiFi
 PRODUCT_PACKAGES += \
     android.hardware.wifi@1.0-service \
+    dhcpcd.conf \
+    hostapd \
     lib_driver_cmd_mt66xx \
     libwpa_client \
-    hostapd \
     wificond \
-    wifilogd \
-    wpa_supplicant
+    wpa_supplicant \
+    wpa_supplicant.conf
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/etc/wifi/wpa_supplicant.conf:system/vendor/etc/wifi/wpa_supplicant.conf \
     $(LOCAL_PATH)/configs/etc/wifi/wpa_supplicant_overlay.conf:system/vendor/etc/wifi/wpa_supplicant_overlay.conf \
     $(LOCAL_PATH)/configs/etc/wifi/p2p_supplicant_overlay.conf:system/vendor/etc/wifi/p2p_supplicant_overlay.conf
-
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.boot.wificountrycode=00
 
 PRODUCT_PACKAGES += \
     librs_jni \
@@ -246,18 +243,6 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 	ro.debuggable=1 \
 	ro.config.low_ram=false
 
-# Google properties overides
-PRODUCT_PROPERTY_OVERRIDES += \
-    keyguard.no_require_sim=true \
-    ro.url.legal=http://www.google.com/intl/%s/mobile/android/basic/phone-legal.html \
-    ro.url.legal.android_privacy=http://www.google.com/intl/%s/mobile/android/basic/privacy.html \
-    ro.com.google.clientidbase=android-google \
-    ro.atrace.core.services=com.google.android.gms,com.google.android.gms.ui,com.google.android.gms.persistent \
-    ro.error.receiver.system.apps=com.google.android.gms \
-    ro.setupwizard.enterprise_mode=1 \
-    ro.com.android.dataroaming=false \
-    net.tethering.noprovisioning=true
-
 # IO Scheduler
 PRODUCT_PROPERTY_OVERRIDES += \
     sys.io.scheduler=cfq
@@ -284,12 +269,3 @@ PRODUCT_SYSTEM_SERVER_JARS += com.cyanogenmod.keyhandler
 
 # Never dexopt the keyhandler
 $(call add-product-dex-preopt-module-config,com.cyanogenmod.keyhandler,disable)
-
-# Superuser
-#WITH_SU := true
-
-#debug_boot
-#PRODUCT_PACKAGES += \
-    #busybox \
-    #log-kmsg.sh \
-    #init_orig

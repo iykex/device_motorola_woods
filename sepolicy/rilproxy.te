@@ -1,8 +1,6 @@
 # ==============================================
 # Policy File of /system/bin/rilproxy Executable File
 
-allow rild rild_socket:sock_file w_file_perms;
-allow rild ril-daemon-mtk:unix_stream_socket connectto;
 
 # ==============================================
 # Type Declaration

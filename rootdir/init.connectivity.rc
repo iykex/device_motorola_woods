@@ -28,7 +28,7 @@ on post-fs-data
     mkdir /data/misc/wpa_supplicant 0770 wifi wifi
 
 # BT relayer mode used VCOM
-    chown bluetooth net_bt_stack /dev/ttyGS2
+    chown bluetooth bluetooth /dev/ttyGS2
     chmod 0660 /dev/ttyGS2
 
 #
