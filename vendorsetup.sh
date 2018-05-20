@@ -21,3 +21,11 @@ git apply -v ../../device/motorola/woods/patches/0003-frameworks_native.patch
 cd ../..
 
 echo " PATCH DONE !!!"
+
+echo
+echo " ....! adding 'devicesettings' for Doze "
+echo " You may have to press Enter Key ! to begin"
+git clone https://github.com/iykequame/android_packages_resources_devicesettings.git -b cm-14.1 packages/resources/devicesettings  
+echo 
+echo " All Set Now !"
+echo
