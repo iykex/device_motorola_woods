@@ -55,24 +55,34 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.camera.manual_sensor.xml:system/etc/permissions/android.hardware.camera.manual_sensor.xml \
     frameworks/native/data/etc/android.hardware.camera.autofocus.xml:system/etc/permissions/android.hardware.camera.autofocus.xml
 
-# Media	
+# Media
 PRODUCT_COPY_FILES += \
     frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:system/etc/media_codecs_google_telephony.xml \
     frameworks/av/media/libstagefright/data/media_codecs_google_video_le.xml:system/etc/media_codecs_google_video_le.xml
 
-# Media	
+# Media
 PRODUCT_COPY_FILES += \
     frameworks/av/services/audiopolicy/config/audio_policy_volumes.xml:/system/etc/audio_policy_volumes.xml \
     frameworks/av/services/audiopolicy/config/default_volume_tables.xml:/system/etc/default_volume_tables.xml \
     frameworks/av/services/audiopolicy/config/r_submix_audio_policy_configuration.xml:/system/etc/r_submix_audio_policy_configuration.xml \
     frameworks/av/services/audiopolicy/config/usb_audio_policy_configuration.xml:/system/etc/usb_audio_policy_configuration.xml
-    
+
 # Camera permissions from Motorola
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/moto/configs/com.motorola.camera.xml:system/etc/permissions/com.motorola.camera.xml \
-    $(LOCAL_PATH)/moto/configs/com.motorola.motosignature.xml:system/etc/permissions/com.motorola.motosignature.xml \
-	$(LOCAL_PATH)/moto/configs/com.motorola.cameraone.xml:system/etc/permissions/com.motorola.cameraone.xml
+				$(LOCAL_PATH)/moto/configs/com.motorola.actions.perdefs.2017.xml:system/etc/com.motorola.actions.perdefs.2017.xml \
+				$(LOCAL_PATH)/moto/configs/com.motorola.camera.xml:system/etc/com.motorola.camera.xml \
+				$(LOCAL_PATH)/moto/configs/com.motorola.cameraone.xml:system/etc/com.motorola.cameraone.xml \
+				$(LOCAL_PATH)/moto/configs/com.motorola.launcher3.xml:system/etc/com.motorola.launcher3.xml \
+				$(LOCAL_PATH)/moto/configs/com.motorola.moto.xml:system/etc/com.motorola.moto.xml \
+				$(LOCAL_PATH)/moto/configs/com.motorola.motodisplay.xml:system/etc/com.motorola.motodisplay.xml \
+				$(LOCAL_PATH)/moto/configs/com.motorola.motokey.xml:system/etc/com.motorola.motokey.xml \
+				$(LOCAL_PATH)/moto/configs/com.motorola.motosignature.xml:system/etc/com.motorola.motosignature.xml \
+				$(LOCAL_PATH)/moto/configs/com.motorola.permission.diag.xml:system/etc/com.motorola.permission.diag.xml \
+				$(LOCAL_PATH)/moto/configs/com.motorola.software.fmplayermtk.xml:system/etc/com.motorola.software.fmplayermtk.xml \
+				$(LOCAL_PATH)/moto/configs/com.motorola.software.storageoptimizer.xml:system/etc/com.motorola.software.storageoptimizer.xml \
+				$(LOCAL_PATH)/moto/configs/com.motorola.software.x_line.xml:system/etc/com.motorola.software.storageoptimizer.xml \
+				$(LOCAL_PATH)/moto/configs/com.motorola.timeweatherwidget.library.xml:system/etc/com.motorola.timeweatherwidget.library.xml
 
 # Ramdisk
 PRODUCT_COPY_FILES += \
@@ -107,7 +117,7 @@ PRODUCT_PACKAGES += \
     wpa_supplicant \
     wpa_supplicant.conf \
     lib_driver_cmd_mt66xx
-     
+
 PRODUCT_PACKAGES += \
     librs_jni \
     com.android.future.usb.accessory
@@ -165,7 +175,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Media
 PRODUCT_PROPERTY_OVERRIDES += \
     media.stagefright.legacyencoder=0
-    
+
 # Properties
 PRODUCT_PROPERTY_OVERRIDES += \
 	ro.hw.gyroscope=false \
