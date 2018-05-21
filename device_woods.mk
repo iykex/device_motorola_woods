@@ -160,7 +160,6 @@ PRODUCT_PACKAGES += \
     android.hardware.camera.provider@2.4-impl \
     android.hardware.camera.provider@2.4-service
 
-
 # FM Radio
 PRODUCT_PACKAGES += \
     android.hardware.broadcastradio@1.0-impl \
@@ -269,3 +268,8 @@ PRODUCT_SYSTEM_SERVER_JARS += com.cyanogenmod.keyhandler
 
 # Never dexopt the keyhandler
 $(call add-product-dex-preopt-module-config,com.cyanogenmod.keyhandler,disable)
+
+###########################################################################
+# ro.boot.optxxxx for telephnoy
+# Add for opt_using_default, always set to 1
+PRODUCT_PROPERTY_OVERRIDES += ro.boot.opt_using_default=1
