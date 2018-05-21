@@ -70,19 +70,19 @@ PRODUCT_COPY_FILES += \
 
 # Camera permissions from Motorola
 PRODUCT_COPY_FILES += \
-				$(LOCAL_PATH)/moto/configs/com.motorola.actions.perdefs.2017.xml:system/etc/com.motorola.actions.perdefs.2017.xml \
-				$(LOCAL_PATH)/moto/configs/com.motorola.camera.xml:system/etc/com.motorola.camera.xml \
-				$(LOCAL_PATH)/moto/configs/com.motorola.cameraone.xml:system/etc/com.motorola.cameraone.xml \
-				$(LOCAL_PATH)/moto/configs/com.motorola.launcher3.xml:system/etc/com.motorola.launcher3.xml \
-				$(LOCAL_PATH)/moto/configs/com.motorola.moto.xml:system/etc/com.motorola.moto.xml \
-				$(LOCAL_PATH)/moto/configs/com.motorola.motodisplay.xml:system/etc/com.motorola.motodisplay.xml \
-				$(LOCAL_PATH)/moto/configs/com.motorola.motokey.xml:system/etc/com.motorola.motokey.xml \
-				$(LOCAL_PATH)/moto/configs/com.motorola.motosignature.xml:system/etc/com.motorola.motosignature.xml \
-				$(LOCAL_PATH)/moto/configs/com.motorola.permission.diag.xml:system/etc/com.motorola.permission.diag.xml \
-				$(LOCAL_PATH)/moto/configs/com.motorola.software.fmplayermtk.xml:system/etc/com.motorola.software.fmplayermtk.xml \
-				$(LOCAL_PATH)/moto/configs/com.motorola.software.storageoptimizer.xml:system/etc/com.motorola.software.storageoptimizer.xml \
-				$(LOCAL_PATH)/moto/configs/com.motorola.software.x_line.xml:system/etc/com.motorola.software.storageoptimizer.xml \
-				$(LOCAL_PATH)/moto/configs/com.motorola.timeweatherwidget.library.xml:system/etc/com.motorola.timeweatherwidget.library.xml
+    $(LOCAL_PATH)/moto/configs/com.motorola.actions.perdefs.2017.xml:system/etc/com.motorola.actions.perdefs.2017.xml \
+    $(LOCAL_PATH)/moto/configs/com.motorola.camera.xml:system/etc/com.motorola.camera.xml \
+    $(LOCAL_PATH)/moto/configs/com.motorola.cameraone.xml:system/etc/com.motorola.cameraone.xml \
+    $(LOCAL_PATH)/moto/configs/com.motorola.launcher3.xml:system/etc/com.motorola.launcher3.xml \
+    $(LOCAL_PATH)/moto/configs/com.motorola.moto.xml:system/etc/com.motorola.moto.xml \
+    $(LOCAL_PATH)/moto/configs/com.motorola.motodisplay.xml:system/etc/com.motorola.motodisplay.xml \
+    $(LOCAL_PATH)/moto/configs/com.motorola.motokey.xml:system/etc/com.motorola.motokey.xml \
+    $(LOCAL_PATH)/moto/configs/com.motorola.motosignature.xml:system/etc/com.motorola.motosignature.xml \
+    $(LOCAL_PATH)/moto/configs/com.motorola.permission.diag.xml:system/etc/com.motorola.permission.diag.xml \
+    $(LOCAL_PATH)/moto/configs/com.motorola.software.fmplayermtk.xml:system/etc/com.motorola.software.fmplayermtk.xml \
+    $(LOCAL_PATH)/moto/configs/com.motorola.software.storageoptimizer.xml:system/etc/com.motorola.software.storageoptimizer.xml \
+    $(LOCAL_PATH)/moto/configs/com.motorola.software.x_line.xml:system/etc/com.motorola.software.storageoptimizer.xml \
+    $(LOCAL_PATH)/moto/configs/com.motorola.timeweatherwidget.library.xml:system/etc/com.motorola.timeweatherwidget.library.xml
 
 # Ramdisk
 PRODUCT_COPY_FILES += \
