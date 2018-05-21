@@ -4,9 +4,6 @@ for var in eng user userdebug; do
 done
 
 # Patches
-cd frameworks/av
-git apply -v ../../device/motorola/woods/patches/0001-frameworks_av.patch
-cd ../..
 cd frameworks/base
 git apply -v ../../device/motorola/woods/patches/0002-frameworks_base.patch
 cd ../..
