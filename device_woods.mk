@@ -70,7 +70,6 @@ PRODUCT_COPY_FILES += \
 
 # Camera permissions from Motorola
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/moto/configs/com.motorola.actions.perdefs.2017.xml:system/etc/com.motorola.actions.perdefs.2017.xml \
     $(LOCAL_PATH)/moto/configs/com.motorola.camera.xml:system/etc/com.motorola.camera.xml \
     $(LOCAL_PATH)/moto/configs/com.motorola.cameraone.xml:system/etc/com.motorola.cameraone.xml \
     $(LOCAL_PATH)/moto/configs/com.motorola.launcher3.xml:system/etc/com.motorola.launcher3.xml \
@@ -133,9 +132,8 @@ PRODUCT_PACKAGES += \
 #PRODUCT_PACKAGES += \
     #MotoDoze
 
-# FM Radio
-#PRODUCT_PACKAGES += \
-    #EngineerMode
+PRODUCT_PACKAGES += \
+    EngineerMode
 
 # FM Radio
 PRODUCT_PACKAGES += \
