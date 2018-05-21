@@ -1,25 +1,16 @@
-From bfecbaf9334117e8c11293ab12a7e9a07ceae8b3 Mon Sep 17 00:00:00 2001
-From: darklord4822 <darklord4722@gmail.com>
-Date: Sat, 7 Oct 2017 14:16:26 +0000
-Subject: [PATCH] changes for MTK
+From 58647c5664673e59fcaa84768465fcd91d5a6360 Mon Sep 17 00:00:00 2001
+From: Wang Xuerui <idontknw.wang@gmail.com>
+Date: Wed, 23 Mar 2016 23:03:24 +0800
+Subject: [PATCH] libnetutils: add MTK bits in ifc_utils.c
 
-Change-Id: I3eeaa80b75e5203d3d8345790dadfbcff8ee2a78
+Change-Id: I82f04b26feaaa3dfd14e1cceffbc116b4cef093a
 ---
- include/netutils/ifc.h      |  15 ++
- init/init.cpp               |   2 +-
- init/init.h                 |   2 +-
- init/service.cpp            |   6 +-
- libcutils/Android.mk        |   5 +-
- libcutils/fs_config.c       |   2 +-
- libcutils/mtk_audioCompat.c |   4 +
- libcutils/mtk_xlog.cpp      |  27 ++++
- libnetutils/ifc_utils.c     | 323 ++++++++++++++++++++++++++++++++++++++++++++
- 9 files changed, 379 insertions(+), 7 deletions(-)
- create mode 100644 libcutils/mtk_audioCompat.c
- create mode 100644 libcutils/mtk_xlog.cpp
+ include/netutils/ifc.h  |  15 +++
+ libnetutils/ifc_utils.c | 270 ++++++++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 285 insertions(+)
 
 diff --git a/include/netutils/ifc.h b/include/netutils/ifc.h
-index 3b27234..03932ab 100644
+index 3b272343d6..a9a39eb70d 100644
 --- a/include/netutils/ifc.h
 +++ b/include/netutils/ifc.h
 @@ -61,6 +61,21 @@ extern int ifc_configure(const char *ifname, in_addr_t address,
@@ -30,7 +21,7 @@ index 3b27234..03932ab 100644
 +extern int ifc_is_up(const char *name, unsigned *isup);
 +extern int ifc_enable_allmc(const char *name);
 +extern int ifc_disable_allmc(const char *name);
-+extern int ifc_reset_connection_by_uid(int uid, int error); 
++extern int ifc_reset_connection_by_uid(int uid, int error);
 +extern int ifc_set_throttle(const char *ifname, int rxKbps, int txKbps);
 +extern int ifc_set_fwmark_rule(const char *ifname, int mark, int add);
 +extern int ifc_set_txq_state(const char *ifname, int state);
@@ -44,130 +35,8 @@ index 3b27234..03932ab 100644
  __END_DECLS
  
  #endif /* _NETUTILS_IFC_H_ */
-diff --git a/init/init.cpp b/init/init.cpp
-index 7a37059..f0b0d4f 100755
---- a/init/init.cpp
-+++ b/init/init.cpp
-@@ -85,7 +85,7 @@ int have_console;
- std::string console_name = "/dev/console";
- static time_t process_needs_restart;
- 
--const char *ENV[32];
-+const char *ENV[64];
- 
- bool waiting_for_exec = false;
- 
-diff --git a/init/init.h b/init/init.h
-index 345d442..f93d0c5 100644
---- a/init/init.h
-+++ b/init/init.h
-@@ -24,7 +24,7 @@ class Service;
- 
- #define COMMAND_RETRY_TIMEOUT 5
- 
--extern const char *ENV[32];
-+extern const char *ENV[64];
- extern bool waiting_for_exec;
- extern int have_console;
- extern std::string console_name;
-diff --git a/init/service.cpp b/init/service.cpp
-index 8127e70..6be06db 100644
---- a/init/service.cpp
-+++ b/init/service.cpp
-@@ -373,9 +373,9 @@ bool Service::Start() {
-         }
-         if (rc == 0 && scon == mycon) {
-             ERROR("Service %s does not have a SELinux domain defined.\n", name_.c_str());
--            free(mycon);
--            free(fcon);
--            return false;
-+            //free(mycon);
-+            //free(fcon);
-+            //return false;
-         }
-         free(mycon);
-         free(fcon);
-diff --git a/libcutils/Android.mk b/libcutils/Android.mk
-index 7a92253..c080b2d 100644
---- a/libcutils/Android.mk
-+++ b/libcutils/Android.mk
-@@ -102,6 +102,8 @@ LOCAL_SRC_FILES := $(libcutils_common_sources) \
-         qtaguid.c \
-         trace-dev.c \
-         uevent.c \
-+        mtk_xlog.cpp \
-+        mtk_audioCompat.c
- 
- LOCAL_SRC_FILES_arm += arch-arm/memset32.S
- LOCAL_SRC_FILES_arm64 += arch-arm64/android_memset.S
-@@ -133,7 +135,8 @@ endif
- ifneq ($(ENABLE_SCHEDBOOST),)
- LOCAL_CFLAGS += -DUSE_SCHEDBOOST
- endif
--LOCAL_CFLAGS += -Werror -Wall -Wextra -std=gnu90
-+#LOCAL_CFLAGS += -Werror -Wall -Wextra -std=gnu90
-+LOCAL_CFLAGS += -Wall -Wextra -std=gnu90
- LOCAL_CLANG := true
- LOCAL_SANITIZE := integer
- include $(BUILD_STATIC_LIBRARY)
-diff --git a/libcutils/fs_config.c b/libcutils/fs_config.c
-index 68cfcbe..3c01c79 100644
---- a/libcutils/fs_config.c
-+++ b/libcutils/fs_config.c
-@@ -143,7 +143,7 @@ static const struct fs_path_config android_files[] = {
-     { 00700, AID_SYSTEM,    AID_SHELL,     CAP_MASK_LONG(CAP_BLOCK_SUSPEND), "system/bin/inputflinger" },
- 
-     /* Support FIFO scheduling mode in SurfaceFlinger. */
--    { 00755, AID_SYSTEM,    AID_GRAPHICS,     CAP_MASK_LONG(CAP_SYS_NICE), "system/bin/surfaceflinger" },
-+    //{ 00755, AID_SYSTEM,    AID_GRAPHICS,     CAP_MASK_LONG(CAP_SYS_NICE), "system/bin/surfaceflinger" },
- 
-     { 00750, AID_ROOT,      AID_ROOT,      0, "system/bin/uncrypt" },
-     { 00750, AID_ROOT,      AID_ROOT,      0, "system/bin/install-recovery.sh" },
-diff --git a/libcutils/mtk_audioCompat.c b/libcutils/mtk_audioCompat.c
-new file mode 100644
-index 0000000..7b00e64
---- /dev/null
-+++ b/libcutils/mtk_audioCompat.c
-@@ -0,0 +1,4 @@
-+int get_capture_position(void)
-+{
-+    return 0;
-+}
-diff --git a/libcutils/mtk_xlog.cpp b/libcutils/mtk_xlog.cpp
-new file mode 100644
-index 0000000..48abe31
---- /dev/null
-+++ b/libcutils/mtk_xlog.cpp
-@@ -0,0 +1,27 @@
-+#include <cutils/log.h>
-+
-+extern "C" {
-+	struct xlog_record {
-+		const char *tag_str;
-+		const char *fmt_str;
-+		int prio;
-+	};
-+
-+	static void init(void) __attribute__ ((constructor));
-+
-+	void init(void){}
-+
-+	int __xlog_buf_printf(int bufid, const struct xlog_record *rec, ...)
-+	{
-+	  va_list args;
-+	  va_start(args, rec);
-+	  LOG_PRI_VA(rec->prio, rec->tag_str, rec->fmt_str, args);
-+	  va_end(args);
-+
-+	  return 0;
-+	}
-+
-+	void dl_unregister_notify_function(void){}
-+
-+	void dl_register_notify_function(int (*load_notify_function) (const char *name, uintptr_t address, uintptr_t size), int(*unload_notify_function) (const char *name, uintptr_t address)){}
-+}
 diff --git a/libnetutils/ifc_utils.c b/libnetutils/ifc_utils.c
-index 7739cf4..72832aa 100644
+index 6c75045470..9bf764466e 100644
 --- a/libnetutils/ifc_utils.c
 +++ b/libnetutils/ifc_utils.c
 @@ -37,6 +37,9 @@
@@ -179,7 +48,7 @@ index 7739cf4..72832aa 100644
 +#endif
  
  #include "netutils/ifc.h"
- 
+ 	   
 @@ -54,6 +57,9 @@
  #if defined(__ANDROID__)
  /* SIOCKILLADDR is an Android extension. */
@@ -204,8 +73,8 @@ index 7739cf4..72832aa 100644
 +    int result = -1;
 +    struct uid_err uid_e;
 +
-+	uid_e.appuid = uid;
-+	uid_e.errorNum = error;
++    uid_e.appuid = uid;
++    uid_e.errorNum = error;
 +
 +    tcp_ctl_sock = socket(AF_INET, SOCK_STREAM, 0);
 +    if (tcp_ctl_sock < 0) {
@@ -220,7 +89,7 @@ index 7739cf4..72832aa 100644
 +    }
 +
 +    ALOGD("ifc_reset_connection_by_uid, appuid = %d, error = %d ",
-+		      uid_e.appuid, uid_e.errorNum);
++              uid_e.appuid, uid_e.errorNum);
 +    result = ioctl(tcp_ctl_sock, SIOCKILLSOCK, &uid_e);
 +    if(result < 0)
 +        ALOGE("ifc_reset_connection_by_uid, result= %d, error =%s ", result, strerror(errno));
@@ -235,26 +104,26 @@ index 7739cf4..72832aa 100644
 +
 +int ifc_enable_allmc(const char *ifname)
 +{
-+	int result;
++    int result;
 +
-+	ifc_init();
-+	result = ifc_set_flags(ifname, IFF_ALLMULTI, 0);
-+	ifc_close();
++    ifc_init();
++    result = ifc_set_flags(ifname, IFF_ALLMULTI, 0);
++    ifc_close();
 +
-+	ALOGD("ifc_enable_allmc(%s) = %d", ifname, result);
-+	return result;
++    ALOGD("ifc_enable_allmc(%s) = %d", ifname, result);
++    return result;
 +}
 +
 +int ifc_disable_allmc(const char *ifname)
 +{
-+	int result;
++    int result;
 +
-+	ifc_init();
-+	result = ifc_set_flags(ifname, 0, IFF_ALLMULTI);
-+	ifc_close();
++    ifc_init();
++    result = ifc_set_flags(ifname, 0, IFF_ALLMULTI);
++    ifc_close();
 +
-+	ALOGD("ifc_disable_allmc(%s) = %d", ifname, result);
-+	return result;
++    ALOGD("ifc_disable_allmc(%s) = %d", ifname, result);
++    return result;
 +}
 +int ifc_is_up(const char *name, unsigned *isup)
 +{
@@ -316,8 +185,8 @@ index 7739cf4..72832aa 100644
 +    int ret = -1;
 +    int seq = 1;
 +    char rcv_buf[24];
-+	int nread = 0;
-+	int netd_sock = 0;
++    int nread = 0;
++    int netd_sock = 0;
 +
 +    ALOGD("enter ifc_set_throttle: ifname = %s, rx = %d kbs, tx = %d kbs", ifname, rxKbps, txKbps);
 +
@@ -327,10 +196,10 @@ index 7739cf4..72832aa 100644
 +
 +    // Send the request.
 +    fnetd = fdopen(netd_sock, "r+");
-+	if(fnetd == NULL){
-+		ALOGE("open netd socket failed, err:%d(%s)", errno, strerror(errno));
-+		goto exit;
-+	}
++    if(fnetd == NULL){
++        ALOGE("open netd socket failed, err:%d(%s)", errno, strerror(errno));
++        goto exit;
++    }
 +    if (fprintf(fnetd, "%d interface setthrottle %s %d %d", seq, ifname, rxKbps, txKbps) < 0) {
 +        goto exit;
 +    }
@@ -341,10 +210,10 @@ index 7739cf4..72832aa 100644
 +    }
 +    ret = 0;
 +
-+	//Todo: read the whole response from netd
-+	nread = fread(rcv_buf, 1, 20, fnetd);
-+	rcv_buf[23] = 0;
-+	ALOGD("response: %s", rcv_buf);
++    //Todo: read the whole response from netd
++    nread = fread(rcv_buf, 1, 20, fnetd);
++    rcv_buf[23] = 0;
++    ALOGD("response: %s", rcv_buf);
 +exit:
 +    if (fnetd != NULL) {
 +        fclose(fnetd);
@@ -359,8 +228,8 @@ index 7739cf4..72832aa 100644
 +    int ret = -1;
 +    int seq = 2;
 +    char rcv_buf[24];
-+    int nread = 0;
-+    const char* op;
++      int nread = 0;
++      const char* op;
 +    int netd_sock = 0;
 +
 +    if (add) {
@@ -376,10 +245,10 @@ index 7739cf4..72832aa 100644
 +
 +    // Send the request.
 +    fnetd = fdopen(netd_sock, "r+");
-+     if(fnetd == NULL){
-+           ALOGE("open netd socket failed, err:%d(%s)", errno, strerror(errno));
-+           goto exit;
-+       }
++    if(fnetd == NULL){
++        ALOGE("open netd socket failed, err:%d(%s)", errno, strerror(errno));
++        goto exit;
++    }
 +    if (fprintf(fnetd, "%d network fwmark %s %s %d", seq, op, ifname, mark) < 0) {
 +        goto exit;
 +    }
@@ -390,10 +259,10 @@ index 7739cf4..72832aa 100644
 +    }
 +    ret = 0;
 +
-+        //Todo: read the whole response from netd
-+        nread = fread(rcv_buf, 1, 20, fnetd);
-+        rcv_buf[23] = 0;
-+        ALOGD("ifc_set_fwmark_rule response: %s", rcv_buf);
++    //Todo: read the whole response from netd
++    nread = fread(rcv_buf, 1, 20, fnetd);
++    rcv_buf[23] = 0;
++    ALOGD("ifc_set_fwmark_rule response: %s", rcv_buf);
 +exit:
 +    if (fnetd != NULL) {
 +        fclose(fnetd);
@@ -468,14 +337,14 @@ index 7739cf4..72832aa 100644
 +
 +    ctl_sock = socket(AF_INET, SOCK_DGRAM, 0);
 +    if(ctl_sock < 0){
-+    ALOGE("create ctl socket failed\n");
-+      return -1;
++        ALOGE("create ctl socket failed\n");
++        return -1;
 +    }
 +    ret = ioctl(ctl_sock, SIOCSTXQSTATE, &ifr);
 +    if(ret < 0)
-+       ALOGE("ifc_set_txq_state failed, err:%d(%s)\n", errno, strerror(errno));
++        ALOGE("ifc_set_txq_state failed, err:%d(%s)\n", errno, strerror(errno));
 +    else
-+       ALOGI("ifc_set_txq_state as %d, ret: %d\n", state, ret);
++        ALOGI("ifc_set_txq_state as %d, ret: %d\n", state, ret);
 +
 +    close(ctl_sock);
 +
@@ -499,8 +368,8 @@ index 7739cf4..72832aa 100644
 +
 +    if(ioctl(ctl_sock, SIOCSCCMNICFG, &ifr) < 0) {
 +        printerr("ifc_ccmni_md_configure(ifname=%s, md_id=%d) error:%d(%s)", \
-+             ifname, md_id, errno, strerror(errno));
-+       ret = -1;
++            ifname, md_id, errno, strerror(errno));
++        ret = -1;
 +    } else {
 +        printerr("ifc_ccmni_md_configure(ifname=%s, md_id=%d) OK", ifname, md_id);
 +    }
@@ -511,6 +380,3 @@ index 7739cf4..72832aa 100644
 +
 +
 +#endif
--- 
-1.9.1
-

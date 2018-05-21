@@ -1,44 +1,3 @@
-From 0579448b7a188dd6666d4c3cb47c8be3f167bcf2 Mon Sep 17 00:00:00 2001
-From: darklord4822 <darklord4722@gmail.com>
-Date: Sat, 10 Feb 2018 22:55:31 +0000
-Subject: [PATCH] changes for MTK
-
-Change-Id: I105c019d026520bd02314da20ecbb7f15435e7a9
----
- include/gui/BufferQueueCore.h        |   3 +-
- include/gui/IProducerListener.h      |   6 ++
- include/media/openmax/OMX_IVCommon.h |  11 +++
- include/ui/Fence.h                   |  15 ++--
- include/ui/mediatek/GuiExtMonitor.h  | 133 +++++++++++++++++++++++++++++++++++
- include/ui/mediatek/IDumpTunnel.h    |  49 +++++++++++++
- include/ui/mediatek/RefBaseDump.h    |  34 +++++++++
- libs/gui/Android.mk                  |   6 +-
- libs/gui/BufferQueueCore.cpp         |   2 +
- libs/gui/BufferQueueProducer.cpp     |  14 ++++
- libs/gui/ConsumerBase.cpp            |   9 +++
- libs/gui/GLConsumer.cpp              |   9 +++
- libs/gui/IProducerListener.cpp       |  10 ++-
- libs/gui/SurfaceControl.cpp          |  18 +++++
- libs/ui/Android.mk                   |  16 ++++-
- libs/ui/Fence.cpp                    |  33 ++++++++-
- libs/ui/GraphicBuffer.cpp            |  29 ++++++++
- libs/ui/mediatek/Fence.cpp           |  58 +++++++++++++++
- libs/ui/mediatek/IDumpTunnel.cpp     | 116 ++++++++++++++++++++++++++++++
- libs/ui/mediatek/RefBaseDump.cpp     |  70 ++++++++++++++++++
- opengl/include/EGL/eglext.h          |   9 +++
- opengl/libs/EGL/Loader.cpp           |  41 ++++++++---
- opengl/libs/EGL/Loader.h             |   8 +--
- opengl/libs/EGL/eglApi.cpp           |  75 ++++++++++++++++++++
- opengl/libs/EGL/egl_entries.in       |   3 +
- vulkan/libvulkan/driver.cpp          |  18 +++--
- 26 files changed, 766 insertions(+), 29 deletions(-)
- create mode 100644 include/ui/mediatek/GuiExtMonitor.h
- create mode 100644 include/ui/mediatek/IDumpTunnel.h
- create mode 100644 include/ui/mediatek/RefBaseDump.h
- create mode 100644 libs/ui/mediatek/Fence.cpp
- create mode 100644 libs/ui/mediatek/IDumpTunnel.cpp
- create mode 100644 libs/ui/mediatek/RefBaseDump.cpp
-
 diff --git a/include/gui/BufferQueueCore.h b/include/gui/BufferQueueCore.h
 index 4e54ddb..e4c9fad 100644
 --- a/include/gui/BufferQueueCore.h
@@ -1371,6 +1330,3 @@ index ba99d0c..6cd3f5f 100644
      hwvulkan_device_t* device;
      result =
          module->common.methods->open(&module->common, HWVULKAN_DEVICE_0,
--- 
-1.9.1
-
