@@ -1,10 +1,8 @@
-Index: init/init.cpp
-IDEA additional info:
-Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
-<+>UTF-8
-===================================================================
---- init/init.cpp	(revision d3689d8a329fe472d782da94ec9166a42c65d8d8)
-+++ init/init.cpp	(date 1526534099000)
+diff --git a/init/init.cpp b/init/init.cpp
+index 858e7c5..63dc37a 100644
+
+--- init/init.cpp
++++ init/init.cpp
 @@ -434,7 +434,7 @@
 
      if (ret == -1) {
