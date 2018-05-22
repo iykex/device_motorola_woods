@@ -1,9 +1,24 @@
+# Copyright (C) 2013-2016, The CyanogenMod Project
+# Copyright (C) 2017-2018, The LineageOS Project
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+#woods_patch
+DEVICE_PATH := device/motorola/woods
+VENDOR_PATH := vendor/motorola/woods
+
 # inherit from the proprietary version
 -include vendor/motorola/woods/BoardConfigVendor.mk
-
-
-# Disable NINJA
-#USE_NINJA := false
 
 # Architecture
 FORCE_32_BIT := true
@@ -85,9 +100,22 @@ TARGET_OTA_ASSERT_DEVICE := Moto_E4,Moto E4,E4,e4,woods,woods_f,woods_retail
 # Disable memcpy opt (for audio libraries)
 TARGET_CPU_MEMCPY_OPT_DISABLE := true
 
+# config.fs
+TARGET_FS_CONFIG_GEN := $(DEVICE_PATH)/config.fs
+
 # Flags
 BOARD_GLOBAL_CFLAGS += -DNO_SECURE_DISCARD
 BOARD_GLOBAL_CFLAGS += -DDISABLE_HW_ID_MATCH_CHECK
+
+# Enable dexpreopt to speed boot time
+ifeq ($(HOST_OS),linux)
+  ifneq ($(TARGET_BUILD_VARIANT),eng)
+    ifeq ($(WITH_DEXPREOPT),)
+      WITH_DEXPREOPT := true
+      WITH_DEXPREOPT_BOOT_IMG_AND_SYSTEM_SERVER_ONLY := true
+    endif
+  endif
+endif
 
 # Charger
 WITH_LINEAGE_CHARGER := false
@@ -96,10 +124,10 @@ BOARD_DISABLE_HW_ID_MATCH_CHECK := true
 SUPPRESS_MTK_AUDIO_BLOB_ERR_MSG := true
 
 # SensorHAL
-TARGET_SENSORS_DEVICE_API_VERSION := SENSORS_DEVICE_API_VERSION_1_1
+TARGET_SENSORS_DEVICE_API_VERSION := SENSORS_DEVICE_API_VERSION_1_0
 
 # Display
-BOARD_EGL_CFG := /vendor/motorola/woods/vendor/lib/egl/egl.cfg
+BOARD_EGL_CFG := $(VENDOR_PATH)/vendor/lib/egl/egl.cfg
 USE_OPENGL_RENDERER := true
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 TARGET_RUNNING_WITHOUT_SYNC_FRAMEWORK := true
@@ -117,16 +145,18 @@ BOARD_USE_SOFT_GATEKEEPER := true
 # Mediatek support
 BOARD_USES_MTK_HARDWARE := true
 #DISABLE_ASHMEM_TRACKING := true
+BOARD_CONNECTIVITY_VENDOR := MediaTek
+BOARD_USES_MTK_AUDIO := true
 
 # Camera
 USE_CAMERA_STUB := true
 
 # Boot animation
 TARGET_BOOTANIMATION_MULTITHREAD_DECODE := true
-#TARGET_BOOTANIMATION_TEXTURE_CACHE := true
+TARGET_BOOTANIMATION_TEXTURE_CACHE := true
 
 # Lineage Hardware
-BOARD_HARDWARE_CLASS += device/motorola/woods/lineagehw
+BOARD_HARDWARE_CLASS += $(DEVICE_PATH)/lineagehw
 
 # Fix video autoscaling on old OMX decoders
 #TARGET_OMX_LEGACY_RESCALING := true
@@ -135,7 +165,7 @@ BOARD_HARDWARE_CLASS += device/motorola/woods/lineagehw
 BACKLIGHT_PATH := /sys/class/leds/lcd-backlight/brightness
 
 # RIL
-BOARD_RIL_CLASS := ../../../device/motorola/woods/ril/
+BOARD_RIL_CLASS := ../../../$(DEVICE_PATH)/ril/
 
 # GPS
 BOARD_GPS_LIBRARIES :=true
@@ -172,12 +202,12 @@ BOARD_HAVE_BLUETOOTH := true
 #BOARD_HAVE_BLUETOOTH_MTK := true
 #BOARD_BLUETOOTH_DOES_NOT_USE_RFKILL := true
 #BOARD_BLUETOOTH_BDROID_HCILP_INCLUDED := 0
-BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/motorola/woods/bluetooth
+BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(DEVICE_PATH)/bluetooth
 
 TARGET_LDPRELOAD += mtk_symbols.so
 
 # CWM
-TARGET_RECOVERY_FSTAB := device/motorola/woods/rootdir/recovery.fstab
+TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/rootdir/recovery.fstab
 BOARD_HAS_NO_SELECT_BUTTON := true
 
 # TWRP stuff
@@ -196,16 +226,16 @@ TW_HAS_DOWNLOAD_MODE := true
 TW_EXCLUDE_SUPERSU := true
 TW_USE_TOOLBOX := true
 
-TARGET_SYSTEM_PROP := device/motorola/woods/system.prop
-TARGET_SPECIFIC_HEADER_PATH := device/motorola/woods/include
+TARGET_SYSTEM_PROP :=$(DEVICE_PATH)/system.prop
+TARGET_SPECIFIC_HEADER_PATH := $(DEVICE_PATH)/include
 TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/class/android_usb/android0/f_mass_storage/lun/file
 
 BOARD_SEPOLICY_DIRS := \
        device/motorola/woods/sepolicy
 
 #HIDL
-DEVICE_MANIFEST_FILE := device/motorola/woods/hidl/manifest.xml
-DEVICE_MATRIX_FILE := device/motorola/woods/hidl/compatibility_matrix.xml
+DEVICE_MANIFEST_FILE := $(DEVICE_PATH)/hidl/manifest.xml
+DEVICE_MATRIX_FILE := $(DEVICE_PATH)/hidl/compatibility_matrix.xml
 
 #allow missing dependencies
 ALLOW_MISSING_DEPENDENCIES ?= true
