@@ -60,19 +60,19 @@ TARGET_ARCH := arm
 KERNEL_ARCH := arm
 TARGET_KERNEL_ARCH := arm
 TARGET_KERNEL_CONFIG := woods_defconfig
-BOARD_KERNEL_CMDLINE := bootopt=64S3,32N2,32N2 androidboot.selinux=permissive androidboot.selinux=disabled 
+BOARD_KERNEL_CMDLINE := bootopt=64S3,32N2,32N2 androidboot.selinux=permissive androidboot.selinux=disabled
 BOARD_KERNEL_OFFSET := 0x00008000
 else
 TARGET_KERNEL_ARCH := arm64
-BOARD_KERNEL_CMDLINE := bootopt=64S3,32N2,64N2 androidboot.selinux=permissive androidboot.selinux=disabled 
+BOARD_KERNEL_CMDLINE := bootopt=64S3,32N2,64N2 androidboot.selinux=permissive androidboot.selinux=disabled
 BOARD_KERNEL_OFFSET = 0x00080000
 TARGET_USES_64_BIT_BINDER := true
 endif
 BOARD_MKBOOTIMG_ARGS := --kernel_offset $(BOARD_KERNEL_OFFSET) --ramdisk_offset $(BOARD_RAMDISK_OFFSET) --tags_offset $(BOARD_TAGS_OFFSET)
 
 # make_ext4fs requires numbers in dec format
-BOARD_BOOTIMAGE_PARTITION_SIZE := 16777216 
-BOARD_RECOVERYIMAGE_PARTITION_SIZE := 16777216 
+BOARD_BOOTIMAGE_PARTITION_SIZE := 16777216
+BOARD_RECOVERYIMAGE_PARTITION_SIZE := 16777216
 BOARD_SYSTEMIMAGE_PARTITION_SIZE := 2432696320
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 4698144768
 BOARD_CACHEIMAGE_PARTITION_SIZE := 419430400
@@ -205,3 +205,7 @@ BOARD_SEPOLICY_DIRS := \
 
 #HIDL
 DEVICE_MANIFEST_FILE := device/motorola/woods/hidl/manifest.xml
+DEVICE_MATRIX_FILE := device/motorola/woods/hidl/compatibility_matrix.xml
+
+#allow missing dependencies
+ALLOW_MISSING_DEPENDENCIES ?= true
