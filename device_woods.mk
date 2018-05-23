@@ -168,6 +168,10 @@ PRODUCT_PACKAGES += \
     android.hardware.bluetooth@1.0-impl \
     android.hardware.bluetooth@1.0-service
 
+# Doze
+PRODUCT_PACKAGES += \
+		    MotoDoze
+
 # Camera HAL
 PRODUCT_PACKAGES += \
     camera.device@1.0-impl \
