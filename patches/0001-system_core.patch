@@ -1,3 +1,22 @@
+From 81be8fe93150f1472dd82ae808c0bf3984736d46 Mon Sep 17 00:00:00 2001
+From: darklord4822 <darklord4722@gmail.com>
+Date: Sun, 18 Feb 2018 08:47:59 +0000
+Subject: [PATCH] changes for MTK
+
+Change-Id: Ib73e61d5698ad3228c1b41518cf73c497cf2da2e
+---
+ gatekeeperd/Android.mk             |   4 +
+ gatekeeperd/gatekeeperd.cpp        |   4 +
+ init/init.cpp                      |   2 +-
+ init/init.h                        |   2 +-
+ libcutils/Android.bp               |   2 +-
+ libcutils/fs_config.cpp            |   4 +-
+ libcutils/mtk_xlog.cpp             |  27 ++++
+ libnetutils/ifc_utils.c            | 315 +++++++++++++++++++++++++++++++++++++
+ libnetutils/include/netutils/ifc.h |  13 ++
+ 9 files changed, 368 insertions(+), 5 deletions(-)
+ create mode 100644 libcutils/mtk_xlog.cpp
+
 diff --git a/gatekeeperd/Android.mk b/gatekeeperd/Android.mk
 index 28f0b07..7ba8505 100644
 --- a/gatekeeperd/Android.mk
@@ -6,11 +25,11 @@ index 28f0b07..7ba8505 100644
  	libhidltransport \
  	libhwbinder \
  	android.hardware.gatekeeper@1.0 \
-+
++	
 +ifeq ($(strip $(BOARD_USE_SOFT_GATEKEEPER)),true)
 +LOCAL_CFLAGS += -DUSE_SOFT_GATEKEEPER
 +endif
-
+ 
  LOCAL_STATIC_LIBRARIES := libscrypt_static
  LOCAL_C_INCLUDES := external/scrypt/lib/crypto
 diff --git a/gatekeeperd/gatekeeperd.cpp b/gatekeeperd/gatekeeperd.cpp
@@ -26,7 +45,7 @@ index 61c8804..8e43da9 100644
 +#else
          hw_device = IGatekeeper::getService();
 +#endif
-
+ 
          if (hw_device == nullptr) {
              ALOGW("falling back to software GateKeeper");
 diff --git a/init/init.cpp b/init/init.cpp
@@ -36,12 +55,12 @@ index 35fc442..f3814a3 100644
 @@ -88,7 +88,7 @@ static char qemu[32];
  std::string default_console = "/dev/console";
  static time_t process_needs_restart_at;
-
+ 
 -const char *ENV[32];
 +const char *ENV[64];
-
+ 
  static int epoll_fd = -1;
-
+ 
 diff --git a/init/init.h b/init/init.h
 index aaab523..02ba0f2 100644
 --- a/init/init.h
@@ -69,7 +88,7 @@ index d00ff5f..015774e 100644
                  misc_undefined: ["integer"],
 @@ -157,7 +158,6 @@ cc_library {
      local_include_dirs: ["include"],
-
+ 
      cflags: [
 -        "-Werror",
          "-Wall",
@@ -81,13 +100,13 @@ index cb15b57..f77a293 100644
 +++ b/libcutils/fs_config.cpp
 @@ -182,8 +182,8 @@ static const struct fs_path_config android_files[] = {
                                                "system/bin/run-as" },
-
+ 
      // Support FIFO scheduling mode in SurfaceFlinger.
 -    { 00755, AID_SYSTEM,    AID_GRAPHICS,  CAP_MASK_LONG(CAP_SYS_NICE),
 -                                              "system/bin/surfaceflinger" },
 +    //{ 00755, AID_SYSTEM,    AID_GRAPHICS,  CAP_MASK_LONG(CAP_SYS_NICE),
 +    //                                          "system/bin/surfaceflinger" },
-
+ 
      // Support hostapd administering a network interface.
      { 00755, AID_WIFI,      AID_WIFI,      CAP_MASK_LONG(CAP_NET_ADMIN) |
 diff --git a/libcutils/mtk_xlog.cpp b/libcutils/mtk_xlog.cpp
@@ -142,10 +161,10 @@ index a098d59..6694a43 100644
  #define SIOCKILLADDR 0x8939
 +#define SIOCKILLSOCK 0x893a
  #endif
-
+ 
  static int ifc_ctl_sock = -1;
 @@ -725,3 +727,316 @@ ifc_configure(const char *ifname,
-
+ 
      return 0;
  }
 +
@@ -466,13 +485,13 @@ index 3b27234..d7e0aab 100644
 --- a/libnetutils/include/netutils/ifc.h
 +++ b/libnetutils/include/netutils/ifc.h
 @@ -61,6 +61,19 @@ extern int ifc_configure(const char *ifname, in_addr_t address,
-
+ 
  extern in_addr_t prefixLengthToIpv4Netmask(int prefix_length);
-
+ 
 +extern int ifc_is_up(const char *name, unsigned *isup);
 +extern int ifc_enable_allmc(const char *name);
 +extern int ifc_disable_allmc(const char *name);
-+extern int ifc_reset_connection_by_uid(int uid, int error);
++extern int ifc_reset_connection_by_uid(int uid, int error); 
 +extern int ifc_set_throttle(const char *ifname, int rxKbps, int txKbps);
 +extern int ifc_set_fwmark_rule(const char *ifname, int mark, int add);
 +extern int ifc_set_txq_state(const char *ifname, int state);
@@ -483,7 +502,8 @@ index 3b27234..d7e0aab 100644
 +};
 +
  __END_DECLS
-
+ 
  #endif /* _NETUTILS_IFC_H_ */
---
+-- 
 1.9.1
+
