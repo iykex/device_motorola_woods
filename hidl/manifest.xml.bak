@@ -1,27 +1,30 @@
 <!-- device manifest for MTK devices
      2017/9/9:  by:daniel_hk (https://github.com/danielhk) -->
 <manifest version="1.0" type="device">
-    <hal format="hidl">
-        <name>android.hardware.audio</name>
-        <transport>hwbinder</transport>
-        <version>2.0</version>
-        <interface>
-            <name>IDevicesFactory</name>
-            <instance>default</instance>
-        </interface>
-    </hal>
-    <hal format="hidl">
-        <name>android.hardware.audio.effect</name>
-        <transport>hwbinder</transport>
-        <version>2.0</version>
-        <interface>
-            <name>IEffectsFactory</name>
-            <instance>default</instance>
-        </interface>
-    </hal>
+  <hal format="hidl">
+      <name>android.hardware.audio</name>
+      <transport>hwbinder</transport>
+      <impl level="generic"></impl>
+      <version>2.0</version>
+      <interface>
+          <name>IDevicesFactory</name>
+          <instance>default</instance>
+      </interface>
+  </hal>
+  <hal format="hidl">
+      <name>android.hardware.audio.effect</name>
+      <transport>hwbinder</transport>
+      <impl level="generic"></impl>
+      <version>2.0</version>
+      <interface>
+          <name>IEffectsFactory</name>
+          <instance>default</instance>
+      </interface>
+  </hal>
     <hal format="hidl">
         <name>android.hardware.broadcastradio</name>
         <transport>hwbinder</transport>
+        <impl level="generic"></impl>
         <version>1.0</version>
         <interface>
             <name>IBroadcastRadioFactory</name>
@@ -31,6 +34,7 @@
     <hal format="hidl">
         <name>android.hardware.bluetooth</name>
         <transport>hwbinder</transport>
+        <impl level="generic"></impl>
         <version>1.0</version>
         <interface>
             <name>IBluetoothHci</name>
@@ -50,6 +54,7 @@
     <hal format="hidl">
         <name>android.hardware.configstore</name>
         <transport>hwbinder</transport>
+        <impl level="generic"></impl>
         <version>1.0</version>
         <interface>
             <name>ISurfaceFlingerConfigs</name>
@@ -95,6 +100,7 @@
     <hal format="hidl">
         <name>android.hardware.light</name>
         <transport>hwbinder</transport>
+        <impl level="generic"></impl>
         <version>2.0</version>
         <interface>
             <name>ILight</name>
@@ -155,7 +161,8 @@
     </hal>
     <hal format="hidl">
         <name>android.hardware.sensors</name>
-        <transport arch="32+64">passthrough</transport>
+        <transport>hwbinder</transport>
+        <impl level="generic"></impl>
         <version>1.0</version>
         <interface>
             <name>ISensors</name>
@@ -174,7 +181,7 @@
     <hal format="hidl">
         <name>android.hardware.wifi</name>
         <transport>hwbinder</transport>
-        <version>1.1</version>
+        <version>1.0</version>
         <interface>
             <name>IWifi</name>
             <instance>default</instance>
