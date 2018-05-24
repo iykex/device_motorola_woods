@@ -3,8 +3,8 @@
 # Release name
 PRODUCT_RELEASE_NAME := woods
 
-# Inherit some common CM stuff.
-$(call inherit-product, vendor/aosp/common.mk)
+# Inherit some common AOS stuffs
+$(call inherit-product, vendor/aos/config/common.mk)
 
 # Inherit device configuration
 $(call inherit-product, device/motorola/woods/device_woods.mk)
@@ -15,7 +15,7 @@ DEVICE_RESOLUTION := 720x1280
 
 # Device identifier. This must come after all inclusions
 PRODUCT_DEVICE := woods
-PRODUCT_NAME := aosp_woods
+PRODUCT_NAME := aos_woods
 PRODUCT_BRAND := Motorola
 PRODUCT_MODEL := Moto E4
 PRODUCT_MANUFACTURER := Motorola
