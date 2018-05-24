@@ -137,13 +137,20 @@ PRODUCT_PACKAGES += \
 # WiFi
 PRODUCT_PACKAGES += \
     android.hardware.wifi@1.0-service \
-    dhcpcd.conf \
-    hostapd \
     lib_driver_cmd_mt66xx \
     libwpa_client \
+    hostapd \
     wificond \
-    wpa_supplicant \
-    wpa_supplicant.conf
+    wifilogd \
+    wpa_supplicant
+
+PRODUCT_PROPERTY_OVERRIDES += \
+	  ro.boot.wificountrycode=00
+
+# WiFi Display
+# this property enables the user to access Google WFD settings.
+PRODUCT_PROPERTY_OVERRIDES += \
+		persist.debug.wfd.enable=1
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/etc/wifi/wpa_supplicant.conf:system/vendor/etc/wifi/wpa_supplicant.conf \
@@ -224,7 +231,17 @@ PRODUCT_PACKAGES += \
 
 # GPS HAL
 PRODUCT_PACKAGES += \
-    android.hardware.gnss@1.0-impl
+    android.hardware.gnss@1.0-impl \
+		android.hardware.gnss@1.0-service \
+    libcurl
+
+		# Sensor Calibration
+		PRODUCT_PACKAGES += \
+		    libem_sensor_jni
+
+		# Audio Settings
+		PRODUCT_PACKAGES += \
+		    libaudio_volume_jni
 
 # GPS force mode
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -241,15 +258,19 @@ PRODUCT_PACKAGES += \
 
 # Power HAL
 PRODUCT_PACKAGES += \
-    android.hardware.power@1.0-impl
+    android.hardware.power@1.0-impl \
+		android.hardware.power@1.0-service
 
 # Graphic HAL
 PRODUCT_PACKAGES += \
     android.hardware.graphics.allocator@2.0-impl \
     android.hardware.graphics.allocator@2.0-service \
     android.hardware.graphics.composer@2.1-impl \
+		android.hardware.graphics.composer@2.1-service \
     android.hardware.graphics.mapper@2.0-impl \
+		android.hardware.renderscript@1.0-impl \
     android.hardware.memtrack@1.0-impl \
+		android.hardware.memtrack@1.0-service \
     libgralloc_extra \
     libgui_ext \
     libui_ext
