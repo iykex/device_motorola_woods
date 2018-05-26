@@ -16,6 +16,7 @@ bin/em_svr
 bin/ccci_mdinit
 bin/akmd09911
 bin/nvram_daemon
+bin/wpa_supplicant
 bin/mc6420d
 bin/lsm303md
 bin/qmcX983d
@@ -220,7 +221,7 @@ lib{,64}/libdngop.so
 lib{,64}/libnvramagentclient.so
 lib{,64}/libpalwlan_mtk.so
 lib{,64}/libifcutils_mtk.so
-lib{,64}/vendor.mediatek.hardware.radio.deprecated@1.1_vendor.so
+#lib{,64}/vendor.mediatek.hardware.radio.deprecated@1.1_vendor.so
 usr/keylayout/mtk-kpd.kl
 usr/keylayout/ACCDET.kl
 vendor/lib{,64}/libwvdrm_L3.so
@@ -231,6 +232,10 @@ vendor/lib{,64}/mediadrm/libmockdrmcryptoplugin.so
 vendor/lib{,64}/mediadrm/libwvdrmengine.so
 vendor/lib{,64}/mediadrm/libdrmclearkeyplugin.so
 vendor/lib{,64}/hw/audio.a2dp.blueangel.so
+vendor/lib{,64}/vendor.mediatek.hardware.pq@2.0.so
+vendor/lib{,64}/vendor.mediatek.hardware.radio.deprecated@1.1.so
+vendor/lib{,64}/vendor.mediatek.hardware.radio@1.1.so
+vendor/lib{,64}/vendor.mediatek.hardware.radio.deprecated@1.1_vendor.so
 etc/audio_policy.conf
 etc/audio_device.xml
 etc/agps_profiles_conf2.xml
