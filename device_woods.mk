@@ -138,13 +138,13 @@ PRODUCT_PACKAGES += \
 # WiFi
 PRODUCT_PACKAGES += \
     android.hardware.wifi@1.0-service \
-    dhcpcd.conf \
-    hostapd \
-    lib_driver_cmd_mt66xx \
-    libwpa_client \
-    wificond \
-    wpa_supplicant \
-    wpa_supplicant.conf
+		libwpa_client \
+	  hostapd \
+	  dhcpcd.conf \
+	  wpa_supplicant \
+	  wpa_supplicant.conf \
+	  wificond
+
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/etc/wifi/wpa_supplicant.conf:system/vendor/etc/wifi/wpa_supplicant.conf \
@@ -252,6 +252,7 @@ PRODUCT_PACKAGES += \
     android.hardware.graphics.allocator@2.0-impl \
     android.hardware.graphics.allocator@2.0-service \
     android.hardware.graphics.composer@2.1-impl \
+		android.hardware.graphics.composer@2.1-service \
     android.hardware.graphics.mapper@2.0-impl \
     android.hardware.memtrack@1.0-impl \
     libgralloc_extra \
@@ -263,7 +264,10 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 	ro.mount.fs=EXT4 \
 	ro.allow.mock.location=0 \
 	ro.debuggable=1 \
-	ro.config.low_ram=false
+	ro.config.low_ram=false \
+  camera.disable_zsl_mode=1 \
+  ro.adb.secure=0 \
+  ro.secure=0
 
 # IO Scheduler
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -296,3 +300,10 @@ $(call add-product-dex-preopt-module-config,com.cyanogenmod.keyhandler,disable)
 # ro.boot.optxxxx for telephnoy
 # Add for opt_using_default, always set to 1
 PRODUCT_PROPERTY_OVERRIDES += ro.boot.opt_using_default=1
+
+#shim
+PRODUCT_PACKAGES += \
+    libmtk_ril_shim \
+    libmtk_omx_shim \
+    libmtk_camera \
+    libmtk_log_shim
