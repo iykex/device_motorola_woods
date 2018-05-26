@@ -231,6 +231,9 @@ PRODUCT_PACKAGES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.force.gps.mode=gnss
 
+PRODUCT_PROPERTY_OVERRIDES += \
+		ro.telephony.ril_class=WoodsRIL
+
 # USB HAL
 PRODUCT_PACKAGES += \
     android.hardware.usb@1.0-service
