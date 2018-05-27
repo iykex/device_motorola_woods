@@ -36,45 +36,39 @@ Thanks to olegsvs, danielhk, Zormax, darklord4822, xcore995, SRT.
 
 ### NOTE :
 
-_Before you use do the following, keep in mind that you only
-do these when the applied __Patch__ fails to work ._
+_Before you use do the following, keep in mind that you do at your own risk !_
 
 
-Apply these manual edit to lineage-15.0/15.1 source 
+Apply these manual edit to lineage-15.1 source
 before building the rom
 
 with nano editor, edit these files by Commenting the line :
 
-in ( system/sepolicy/public ) 
- ```domain.te``` 
- [ line number : ```227 on 15.0``` & or ```230 on 15.1```  ]
- 
- in ( system/core/init ) 
- ```init.cpp```
- [ line number : ```401 on 15.0``` & or ```434 on 15.1```  ]
+in ( system/sepolicy/public )
+ `domain.te`
+ [ line number : `230`  ]
+
+ in ( system/core/init )
+ `init.cpp`
+ [ line number : `434`  ]
 
 
 example :
 
-Comment line : ```230```
+Comment line : `230`  with `#` infront.
 
-```nano +230 system/sepolicy/public/domain.te```
+`nano +230 system/sepolicy/public/domain.te`
 
-Comment line : ```434```
+Comment line : `434` with `/*` starting and `*/` closing
 
-```nano +434 system/core/init/init.cpp```
+`nano +434 system/core/init/init.cpp`
 
-Copy this `SkUserConfig.h` & `SkUserConfigManual.h` to destination ```external/skia/include/core```  with below command  
-
-```
-cp external/skia/include/config/SkUserConfig.h external/skia/include/core
-cp external/skia/include/config/SkUserConfigManual.h external/skia/include/core
-```
 :Sensors HAL (DO ONLY WHEN REQUIRED!)
 
-when building with : ```PRODUCT_PACKAGES += android.hardware.sensors@1.0-service``` ,it's advisable to locate the ```Sensors.cpp``` $location :```hardware/interfaces/sensors/1.0/default/Sensors.cpp``` and modify it  from```CHECK_GE(getHalDeviceVersion(), SENSORS_DEVICE_API_VERSION_1_3);```  to ```CHECK_GE(getHalDeviceVersion(), SENSORS_DEVICE_API_VERSION_1_0);``` 
+when building with : `PRODUCT_PACKAGES += android.hardware.sensors@1.0-service` ,it's advisable to locate the `Sensors.cpp` $location :`hardware/interfaces/sensors/1.0/default/Sensors.cpp` and modify it  from`CHECK_GE(getHalDeviceVersion(), SENSORS_DEVICE_API_VERSION_1_3);`  to `CHECK_GE(getHalDeviceVersion(), SENSORS_DEVICE_API_VERSION_1_0);`
+
+`nano +98 hardware/interfaces/sensors/1.0/default/Sensors.cpp`
 
 see line here : https://github.com/LineageOS/android_hardware_interfaces/blob/621821f3191754678125a44a1f9b4dbd69f76541/sensors/1.0/default/Sensors.cpp#L98
 
 - -
-
