@@ -4,10 +4,11 @@ for var in eng user userdebug; do
 done
 
 echo
+echo "  :( "
 echo "DO AWAY PATCHES..."
 echo
 echo "/// Let's see what happens"
-echo " ;)"
+echo "  ;) "
 echo
 
 # # Patches
