@@ -16,7 +16,7 @@ LOCAL_PATH := $(call my-dir)
 include $(CLEAR_VARS)
 
 LOCAL_SRC_FILES := \
-    sprout_ril.cpp
+    mtk_ril.cpp
 
 LOCAL_SHARED_LIBRARIES := libbinder
 LOCAL_MODULE := libmtk_ril_shim
@@ -27,7 +27,7 @@ include $(BUILD_SHARED_LIBRARY)
 include $(CLEAR_VARS)
 
 LOCAL_SRC_FILES := \
-    sprout_bionic.cpp
+    mtk_bionic.cpp
 
 LOCAL_SHARED_LIBRARIES := libbinder
 LOCAL_MODULE := libmtk_omx_shim
@@ -38,7 +38,7 @@ include $(BUILD_SHARED_LIBRARY)
 include $(CLEAR_VARS)
 
 LOCAL_SRC_FILES := \
-    sprout_xlog.c
+    mtk_xlog.c
 
 LOCAL_SHARED_LIBRARIES := liblog
 LOCAL_MODULE := libmtk_log_shim
@@ -49,7 +49,7 @@ include $(BUILD_SHARED_LIBRARY)
 include $(CLEAR_VARS)
 
 LOCAL_SRC_FILES := \
-    sprout_camera.cpp
+    mtk_camera.cpp
 
 LOCAL_SHARED_LIBRARIES := libgui libutils liblog libbinder libandroid libui
 
