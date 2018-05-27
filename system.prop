@@ -19,6 +19,8 @@ sys.ipo.pwrdncap=2
 # USB BICR function
 ro.sys.usb.bicr=no
 
+ro.sys.usb.storage.type=mtp,adb
+
 # USB Charge only function
 ro.sys.usb.charging.only=yes
 
