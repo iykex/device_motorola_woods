@@ -9,9 +9,10 @@ include $(CLEAR_VARS)
 LOCAL_MODULE := libgralloc_extra_sys
 
 LOCAL_SRC_FILES := \
-    ge_operator.cpp \
-    ge_misc.c \
-    platform/ge_platform_default.c
+  platform/ge_platform_default.c
+    #ge_operator.cpp \
+    #ge_misc.c \
+
 
 # add platform.c
 #LOCAL_SRC_FILES += $(LOCAL_PATH)/libgralloc_extra/platform/default/platform.c
