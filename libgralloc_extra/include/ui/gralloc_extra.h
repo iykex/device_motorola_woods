@@ -1,19 +1,3 @@
-/*
- * Copyright (C) 2011-2018 MediaTek Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *    http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 #ifndef MTK_GRALLOC_EXTRA_H
 #define MTK_GRALLOC_EXTRA_H
 
@@ -21,15 +5,11 @@
 #include <sys/cdefs.h>
 #include <sys/types.h>
 
-#include <hardware/gralloc1.h>
+#include <system/window.h>
+
+#include <hardware/gralloc.h>
 
 __BEGIN_DECLS
-
-/*
- * GE_API 1: add ge_query(), ge_perform(), support ge_device
- * GE_API 2: add need_resident(), get_platform_format()
- */
-#define GE_API_VERSION 2
 
 enum {
 	GRALLOC_EXTRA_OK,
@@ -50,6 +30,9 @@ typedef enum {
 	GRALLOC_EXTRA_GET_FB_MVA,        /* uintptr_t, deprecated */
 	GRALLOC_EXTRA_GET_SECURE_HANDLE, /* uint32_t */
 
+	GRALLOC_EXTRA_GET_ION_CLIENT,    /* int */
+	GRALLOC_EXTRA_GET_ION_HANDLE,    /* ion_user_handle_t */
+
 	/* output: int */
 	GRALLOC_EXTRA_GET_WIDTH = 10,
 	GRALLOC_EXTRA_GET_HEIGHT,
@@ -60,11 +43,6 @@ typedef enum {
 	GRALLOC_EXTRA_GET_USAGE,
 	GRALLOC_EXTRA_GET_VERTICAL_2ND_STRIDE,
 	GRALLOC_EXTRA_GET_BYTE_2ND_STRIDE,
-
-	/* output: uint64_t */
-	GRALLOC_EXTRA_GET_ID = 50,
-	GRALLOC_EXTRA_GET_CONSUMER_USAGE,
-	GRALLOC_EXTRA_GET_PRODUCER_USAGE,
 
 	/* output: gralloc_extra_sf_info_t */
 	GRALLOC_EXTRA_GET_SF_INFO = 100,
@@ -88,18 +66,6 @@ typedef enum {
 	/* output: ge_hdr_info_t */
 	GRALLOC_EXTRA_GET_HDR_INFO,
 
-	/* output: ge_video_info_t */
-	GRALLOC_EXTRA_GET_VIDEO_INFO,
-
-	/* output: ge_hwc_info_t */
-	GRALLOC_EXTRA_GET_HWC_INFO,
-
-	/* output: buffer timestmp: uint64_t */
-	GRALLOC_EXTRA_GET_TIMESTAMP,
-
-	/* output: ge_timestmp_info_t */
-	GRALLOC_EXTRA_GET_TIMESTAMP_INFO,
-
 } GRALLOC_EXTRA_ATTRIBUTE_QUERY;
 
 /* enum for perform() */
@@ -122,28 +88,16 @@ typedef enum {
 	/* input: ge_hdr_info_t */
 	GRALLOC_EXTRA_SET_HDR_INFO,
 
-	/* input: ge_video_info_t */
-	GRALLOC_EXTRA_SET_VIDEO_INFO,
-
-	/* input ge_hwc_info_t */
-	GRALLOC_EXTRA_SET_HWC_INFO,
-
-	/* input: buffer timestmp: uint64_t */
-	GRALLOC_EXTRA_SET_TIMESTAMP,
-
-	/* input: ge_timestmp_info_t */
-	GRALLOC_EXTRA_SET_TIMESTAMP_INFO,
-
 } GRALLOC_EXTRA_ATTRIBUTE_PERFORM;
 
 int gralloc_extra_query(buffer_handle_t handle, GRALLOC_EXTRA_ATTRIBUTE_QUERY attribute, void *out_pointer);
 
 int gralloc_extra_perform(buffer_handle_t handle, GRALLOC_EXTRA_ATTRIBUTE_PERFORM attribute, void *in_pointer);
 
-#define GRALLOC_EXTRA_MAKE_BIT(start_bit, index)        ( (index##u) << (start_bit) )
+#define GRALLOC_EXTRA_MAKE_BIT(start_bit, index)        ( (index) << (start_bit) )
 #define GRALLOC_EXTRA_MAKE_MASK(start_bit, end_bit)     ( ( ((unsigned int)-1) >> (sizeof(int) * __CHAR_BIT__ - 1 - (end_bit) + (start_bit) ) ) << (start_bit) )
 
-#define GRALLOC_EXTRA_UNMAKE_BIT(start_bit, index)        ( (index##u) >> (start_bit) )
+#define GRALLOC_EXTRA_UNMAKE_BIT(start_bit, index)        ( (index) >> (start_bit) )
 
 /* bits in sf_info.status */
 enum {
@@ -270,11 +224,6 @@ enum {
 	GRALLOC_EXTRA_BIT2_VIDEO_PQ_ON      = GRALLOC_EXTRA_MAKE_BIT(19,0),
 	GRALLOC_EXTRA_BIT2_VIDEO_PQ_OFF     = GRALLOC_EXTRA_MAKE_BIT(19,1),
 	GRALLOC_EXTRA_MASK2_VIDEO_PQ        = GRALLOC_EXTRA_MAKE_MASK(19,19),
-
-	/* UI PQ ALGO reset flag : bit 20 (default off) */
-	GRALLOC_EXTRA_BIT2_UI_PQ_ALGO_RESET_OFF = GRALLOC_EXTRA_MAKE_BIT(20,0),
-	GRALLOC_EXTRA_BIT2_UI_PQ_ALGO_RESET_ON  = GRALLOC_EXTRA_MAKE_BIT(20,1),
-	GRALLOC_EXTRA_MASK2_UI_PQ_ALGO_RESET    = GRALLOC_EXTRA_MAKE_MASK(20,20),
 };
 
 typedef enum {
@@ -342,22 +291,13 @@ typedef struct ge_sf_info_t {
 	int32_t videobuffer_status;
 } ge_sf_info_t;
 
-
-typedef struct ge_hwc_info_t {
-	/* for hwc mirror output buffer use*/
-	_crop_t mirror_out_roi;
-} ge_hwc_info_t;
-
 int gralloc_extra_sf_set_status(ge_sf_info_t *sf_info, int32_t mask, int32_t value);
 int gralloc_extra_sf_set_status2(ge_sf_info_t *sf_info, int32_t mask, int32_t value);
-
-int gralloc_extra_is_private_format(int hal_format);
-int gralloc_extra_cm_2_hal_format(int cm_format);
 
 /* debug data, to facilitate information while debugging */
 typedef struct ge_ion_debug_t {
 	int data[4];
-	char name[48];
+	char name[16];
 } ge_ion_debug_t;
 
 /* s* GPU */
@@ -387,59 +327,34 @@ typedef struct ge_hdr_info_t {
 	uint32_t u4WhitePointY; /* white_point_y */
 	uint32_t u4MaxDisplayMasteringLuminance; /* max_display_mastering_luminance */
 	uint32_t u4MinDisplayMasteringLuminance; /* min_display_mastering_luminance */
-	uint32_t u4MaxContentLightLevel; /* max_content_light_level */
-	uint32_t u4MaxPicAverageLightLevel; /* max_pic_average_light_level */
 } ge_hdr_info_t;
-
-/* Video */
-typedef struct ge_video_info_t {
-	uint32_t width;
-	uint32_t height;
-} ge_video_info_t;
 
 typedef struct {
 	uint32_t orientation; /* camera specify */
 } ge_misc_info_t;
 
-typedef struct {
-	uint64_t timestamp;
-	uint64_t timestamp_queued;
-
-	uint32_t reserved[12];
-} ge_timestamp_info_t;
-
-/* Number of other fds is set to 2 since IMG driver use total 3 fds */
-#define NUM_OTHER_FDS 2
-
-/* MTK private handle */
-typedef struct __attribute__((packed)) ge_handle_t {
-	int ge_fd;
-	int share_fd;
-	int dummy_fd[NUM_OTHER_FDS];
+/* Deprecated methods and struct. START */
+typedef struct gralloc_buffer_info_t {
+	/* static number, never change */
 	int width;
 	int height;
-	int format;
 	int stride;
+	int format;
 	int vertical_stride;
-	int vertical_2nd_stride;
-	int byte_2nd_stride;
-	int alloc_size;
-	uint32_t sec_handle;
-	uint64_t consumer_usage;
-	uint64_t producer_usage;
-} ge_handle_t;
+	int usage;
 
-inline ge_handle_t* get_ge_handle(buffer_handle_t hnd)
-{
-	return (ge_handle_t *)(hnd->data);
-}
-
+	/* change by setBufParameter() */
+	int status;
+} gralloc_buffer_info_t;
+int gralloc_extra_getIonFd(buffer_handle_t handle, int *idx, int *num);
+int gralloc_extra_getBufInfo(buffer_handle_t handle, gralloc_buffer_info_t* bufInfo);
+int gralloc_extra_getSecureBuffer(buffer_handle_t handle, int *type, int *hBuffer);
+int gralloc_extra_setBufParameter(buffer_handle_t handle, int mask, int value);
+int gralloc_extra_getMVA(buffer_handle_t handle, int32_t *mvaddr);
+int gralloc_extra_setBufInfo(buffer_handle_t handle, const char * str);
 typedef ge_sf_info_t gralloc_extra_ion_sf_info_t;
-typedef ge_hwc_info_t gralloc_extra_ion_hwc_info_t;
 typedef ge_ion_debug_t gralloc_extra_ion_debug_t;
-
-int gralloc_extra_get_platform_format(int in_format, uint64_t usage);
-int gralloc_extra_need_resident(uint64_t usage);
+/* Deprecated methods and struct. END */
 
 __END_DECLS
 
