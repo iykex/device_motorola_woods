@@ -24,7 +24,7 @@
 __BEGIN_DECLS
 
 // #include <linux/ion_drv.h>
-#include <linux/mtk_ion.h>
+// #include <linux/mtk_ion.h>
 #include <ion/ion.h>
 
 #ifndef ARRAY_SIZE
