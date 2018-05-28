@@ -1,3 +1,19 @@
+/*
+ * Copyright (C) 2011-2018 MediaTek Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 #ifndef __GRAPHICS_MTK_DEFS_H__
 #define __GRAPHICS_MTK_DEFS_H__
 
@@ -53,7 +69,6 @@ enum {
     HAL_PIXEL_FORMAT_I420_DI        = 0x0000010d,                        /// MTK I420 for deinterlace
     HAL_PIXEL_FORMAT_YV12_DI        = 0x0000010e,                        /// MTK YV12 for deinterlace
     HAL_PIXEL_FORMAT_UFO            = 0x0000010f,                        /// MTK UFO
-    HAL_PIXEL_FORMAT_NV12           = 0x00000110,                        /// NV12
 
     HAL_PIXEL_FORMAT_CAMERA_OPAQUE  = 0x00000111,                        /// for MTK CAMERA
 
@@ -63,8 +78,10 @@ enum {
     HAL_PIXEL_FORMAT_SPH0           = 0x00000120,
     HAL_PIXEL_FORMAT_SPH1           = 0x00000121,
 
-
-
+/**
+ * Add NV12 format support
+ */
+    HAL_PIXEL_FORMAT_NV12           = 0x00001000,                        /// NV12
 };
 
 #ifdef __cplusplus

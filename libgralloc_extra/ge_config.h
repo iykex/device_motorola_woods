@@ -1,3 +1,19 @@
+/*
+ * Copyright (C) 2011-201 MediaTek Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 #ifndef GE_INCLUDE_CONFIG
 #error "gralloc_extra_config only can be included by implementation!"
 #endif
@@ -10,6 +26,9 @@
 	GE_STRUCT(ge_sf_info_t) \
 	GE_STRUCT(ge_sec_hwc_t) \
 	GE_STRUCT(ge_hdr_info_t) \
+	GE_STRUCT(ge_video_info_t) \
+	GE_STRUCT(ge_hwc_info_t) \
+	GE_STRUCT(ge_timestamp_info_t) \
 
 #undef GE_STRUCT
 #define GE_STRUCT(x) sizeof(x),

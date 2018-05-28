@@ -14,37 +14,28 @@
  * limitations under the License.
  */
 
-#ifndef __GE_PRIVATE_H__
-#define __GE_PRIVATE_H__
+#ifndef __GE_H__
+#define __GE_H__
 
-#include <stdint.h>
-#include <sys/cdefs.h>
-#include <sys/types.h>
+#include <ui/gralloc_extra.h>
+#include <ged/ged_ge.h>
 
 __BEGIN_DECLS
 
-#include <linux/ion_drv.h>
-#include <linux/mtk_ion.h>
-#include <ion/ion.h>
+/* Alloc ge_fd, imply ge_retain() */
+GEFD ge_alloc(buffer_handle_t hnd);
 
-#ifndef ARRAY_SIZE
-#define ARRAY_SIZE(a) (sizeof(a) / sizeof((a)[0]))
-#endif
+/* buffer_handle_t is copied, init GE backend */
+int ge_retain(buffer_handle_t hnd);
 
-#ifndef OFFSETOF
-#define OFFSETOF(TYPE, MEMBER) ((size_t) &((TYPE*)0)->MEMBER)
-#endif
+/* buffer_handle_t is going to be closed, deinit GE backend */
+int ge_release(buffer_handle_t hnd);
 
-#define UNUSED(x) UNUSED_ ## x __attribute__((unused))
-
-typedef uint32_t ge_sec_hnd_t;
-
-typedef struct {
-	uint64_t _64hnd;
-	GEFD ge_fd;
-	ion_user_handle_t ion_hnd;
-	ge_sec_hnd_t sec_hnd;
-} ge_sec_hwc_t;
+/* A helper function to close ge_fd.
+ * If you are buffer owner (allocater) must close ge FD by himself
+ * if the implementation does not call native_handle_close().
+ */
+int ge_free(buffer_handle_t hnd);
 
 __END_DECLS
 

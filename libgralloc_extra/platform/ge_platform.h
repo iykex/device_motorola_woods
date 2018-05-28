@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-#ifndef __GE_PRIVATE_H__
-#define __GE_PRIVATE_H__
+#ifndef __GE_PLATFORM_H__
+#define __GE_PLATFORM_H__
 
 #include <stdint.h>
 #include <sys/cdefs.h>
@@ -23,28 +23,13 @@
 
 __BEGIN_DECLS
 
-#include <linux/ion_drv.h>
-#include <linux/mtk_ion.h>
-#include <ion/ion.h>
-
-#ifndef ARRAY_SIZE
-#define ARRAY_SIZE(a) (sizeof(a) / sizeof((a)[0]))
-#endif
-
-#ifndef OFFSETOF
-#define OFFSETOF(TYPE, MEMBER) ((size_t) &((TYPE*)0)->MEMBER)
-#endif
-
-#define UNUSED(x) UNUSED_ ## x __attribute__((unused))
-
-typedef uint32_t ge_sec_hnd_t;
-
 typedef struct {
-	uint64_t _64hnd;
-	GEFD ge_fd;
-	ion_user_handle_t ion_hnd;
-	ge_sec_hnd_t sec_hnd;
-} ge_sec_hwc_t;
+int (*gralloc_extra_get_platform_format)(int in_format, uint64_t usage);
+} ge_platform_fn;
+
+extern ge_platform_fn ge_platform;
+
+void ge_platform_wrap_init(ge_platform_fn *table);
 
 __END_DECLS
 
