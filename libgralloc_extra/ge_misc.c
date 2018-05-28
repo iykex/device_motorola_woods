@@ -22,7 +22,7 @@
 #include <cutils/log.h>
 
 #include <ui/gralloc_extra.h>
-#include <ged/ged_ge.h>
+// #include <ged/ged_ge.h>
 #include "ge_private.h"
 
 #define GE_INCLUDE_CONFIG

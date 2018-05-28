@@ -14,7 +14,7 @@ LOCAL_SRC_FILES := \
     platform/ge_platform_default.c
 
 # add platform.c
-LOCAL_SRC_FILES += $(LOCAL_PATH)/libgralloc_extra/platform/default/platform.c
+#LOCAL_SRC_FILES += $(LOCAL_PATH)/libgralloc_extra/platform/default/platform.c
 
 LOCAL_C_INCLUDES := \
     $(LOCAL_PATH)/libgralloc_extra/include
@@ -55,7 +55,7 @@ LOCAL_SRC_FILES := \
     platform/ge_platform_default.c
 
 # add platform.c
-LOCAL_SRC_FILES += $(LOCAL_PATH)/libgralloc_extra/platform/default/platform.c
+#LOCAL_SRC_FILES += $(LOCAL_PATH)/libgralloc_extra/platform/default/platform.c
 
 LOCAL_C_INCLUDES := \
     $(LOCAL_PATH)/include \
