@@ -32,7 +32,7 @@
 #include <gralloc1_mtk_defs.h>
 #include <graphics_mtk_defs.h>
 
-// #include <ged/ged_ge.h>
+#include <ged/ged_ge.h>
 
 #include "platform/ge_platform.h"
 
@@ -53,7 +53,7 @@
 	AERR(fmt, args)
 #endif
 
-// extern "C" int ge_query(buffer_handle_t hnd, GEFD ge_fd, GRALLOC_EXTRA_ATTRIBUTE_QUERY attr, void *out);
+extern "C" int ge_query(buffer_handle_t hnd, GEFD ge_fd, GRALLOC_EXTRA_ATTRIBUTE_QUERY attr, void *out);
 extern "C" int ge_perform(buffer_handle_t hnd, GEFD ge_fd, GRALLOC_EXTRA_ATTRIBUTE_PERFORM attr, void *in);
 
 extern "C" int gralloc_extra_query(
