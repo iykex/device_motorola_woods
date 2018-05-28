@@ -23,8 +23,8 @@ LOCAL_SRC_FILES := $(call all-c-files-under,src) $(call all-cpp-files-under,src)
 
 LOCAL_C_INCLUDES := \
     $(LOCAL_PATH)/gatekeeper/include \
-    external/scrypt/lib/crypto \
-    $(ANDROID_BUILD_TOP)/system/gatekeeper/include/gatekeeper
+    external/scrypt/lib/crypto
+    #$(ANDROID_BUILD_TOP)/system/gatekeeper/include/gatekeeper
 
 LOCAL_SHARED_LIBRARIES += \
     libgatekeeper \
