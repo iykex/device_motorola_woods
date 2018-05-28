@@ -32,7 +32,7 @@
 #include <gralloc1_mtk_defs.h>
 #include <graphics_mtk_defs.h>
 
-#include <ged/ged_ge.h>
+// #include <ged/ged_ge.h>
 
 #include "platform/ge_platform.h"
 
