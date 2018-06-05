@@ -24,7 +24,7 @@ patch -p1 < ../../device/motorola/woods/patches/06-Add-MTKEngineerMode-support-b
 cd ../..
 cd system/netd
 git reset --hard && git clean -f -d
-patch -p1 < ../../device/mediatek/mt6737-common/patches/07-hotspot.patch
+patch -p1 < ../../device/motorola/woods/patches/07-hotspot.patch
 cd ../..
 
 echo " PATCH DONE !!!"
