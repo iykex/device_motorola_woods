@@ -18,3 +18,7 @@ cd frameworks/base
 git reset --hard && git clean -f -d
 patch -p1 < ../../device/mediatek/mt6737-common/patches/06-Add-MTKEngineerMode-support-base.patch
 cd ../..
+cd system/netd
+git reset --hard && git clean -f -d
+patch -p1 < ../../device/mediatek/mt6737-common/patches/07-hotspot.patch
+cd ../..
